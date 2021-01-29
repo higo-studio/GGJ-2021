@@ -41,7 +41,7 @@ Tilemap:
   m_GameObject: {fileID: 7135404249986590487}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: -2, y: 2, z: 0}
+  - first: {x: -1, y: 2, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 59
@@ -171,7 +171,7 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 3d0d629f97fd03248885d24affbc59c9, type: 2}
+    m_Data: {fileID: 11400000, guid: 12e738df880e7884eb8ff0c2e1fa6155, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -292,7 +292,7 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 1
-    m_Data: {fileID: 6234105302663512517, guid: 70132000d19525344afc3c171519cba3,
+    m_Data: {fileID: 5108650653105579276, guid: f178af62d73d6e9438d757dcceae12ce,
       type: 3}
   m_TileMatrixArray:
   - m_RefCount: 1
@@ -516,7 +516,7 @@ GameObject:
   - component: {fileID: 7657800447073605675}
   - component: {fileID: 513269893404105467}
   m_Layer: 31
-  m_Name: TileGrass
+  m_Name: TileRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -545,7 +545,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8722861648141186370}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 2, z: 0}
+  m_CellSize: {x: 1, y: 1, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
