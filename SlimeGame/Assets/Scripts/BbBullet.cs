@@ -26,15 +26,20 @@ public class BbBullet : MonoBehaviour
         deltaPos += _verticalVelocity * dt;
         var resultCount = Physics2D.CircleCastNonAlloc(transform.position, Radius, deltaPos.normalized, _tempRaycastHitArr, deltaPos.magnitude, layerMask);
         Debug.DrawRay(transform.position, deltaPos, Color.red, 1);
-        if (resultCount > 0)
+
+        for (var i = 0; i < resultCount; i++)
         {
-            var result = _tempRaycastHitArr[0];
+            var result = _tempRaycastHitArr[i];
+            if (result.collider.isTrigger)
+                continue;
             isHit = true;
             Speed = 0;
             GravityRate = 0;
             transform.Translate(result.distance * deltaPos.normalized);
+            Debug.Log("BbBullet: " + result.collider.name);
         }
-        else
+
+        if (!isHit)
         {
             transform.Translate(deltaPos);
         }

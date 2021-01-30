@@ -13,11 +13,6 @@ public class TilemapToolEditor : Editor
     void OnEnable()
     {
         tool = (TilemapToolInspeactor)target;
-        ruleMap = new Dictionary<Tile, TileBase>();
-        foreach (var tuple in tool.keyValueArr)
-        {
-            ruleMap[tuple.key] = tuple.value;
-        }
     }
 
     public override void OnInspectorGUI()
@@ -28,6 +23,11 @@ public class TilemapToolEditor : Editor
         if (GUILayout.Button("生成"))
         {
             Debug.Log("heelo");
+            ruleMap = new Dictionary<Tile, TileBase>();
+            foreach (var tuple in tool.keyValueArr)
+            {
+                ruleMap[tuple.key] = tuple.value;
+            }
             var bounds = tool.src.cellBounds;
             for (var x = bounds.xMin; x < bounds.xMax; x++)
             {

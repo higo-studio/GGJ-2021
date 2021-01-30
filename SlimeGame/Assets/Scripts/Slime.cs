@@ -8,6 +8,8 @@ public class Slime : MonoBehaviour
     //生命值
     public float HP = 0f;
 
+    public float MaxHP = 0f;
+
     //重量
     public float weither = 15f;
 
@@ -23,8 +25,8 @@ public class Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdateState();
-        RunOnTheCube();
+        //UpdateState();
+        //RunOnTheCube();
         
     }
 
@@ -71,4 +73,15 @@ public class Slime : MonoBehaviour
         return weither;
     }
 
+    public void Absorb(float hel)
+    {
+        HP += hel;
+        if (HP > MaxHP)
+            Dead();
+    }
+
+    void Dead()
+    {
+        Debug.Log("awsl");
+    }
 }
