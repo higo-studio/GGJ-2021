@@ -6,7 +6,7 @@ public class SlimeCharacterController : MonoBehaviour
     private Rigidbody2D body;
     private SoftBody2D softBody;
 
-    public float jumpVel = 5;
+    public float jumpVel = 7;
     public float runSpeed = 4;
 
     private bool _jumpState = false;
@@ -14,7 +14,7 @@ public class SlimeCharacterController : MonoBehaviour
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        softBody = GetComponent<SoftBody2D>();    
+        softBody = GetComponent<SoftBody2D>();
     }
 
     void Update()
@@ -29,13 +29,16 @@ public class SlimeCharacterController : MonoBehaviour
     void FixedUpdate()
     {
         var horitonal = Input.GetAxisRaw("Horizontal");
-        body.velocity = new Vector2(horitonal * runSpeed, 0);
+        if (softBody.IsOnground)
+        {
+            body.velocity = new Vector2(horitonal * runSpeed, 0);
+        }
 
         Debug.Log($"IsOnGround: {softBody.IsOnground}");
         if (_jumpState && softBody.IsOnground)
         {
-            softBody.Jump(5);
-            _jumpState = false;
+            softBody.Jump(jumpVel);
         };
+        _jumpState = false;
     }
 }
