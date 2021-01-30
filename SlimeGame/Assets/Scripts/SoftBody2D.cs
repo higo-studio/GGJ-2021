@@ -3,15 +3,53 @@ using UnityEngine.U2D;
 using System;
 using System.Collections.Generic;
 
+class SpringTuple
+{
+    public SpringJoint2D connectToPrevious;
+    public SpringJoint2D connectToCenter;
+    public SpringJoint2D connectToNext;
+}
+
 public class SoftBody2D : MonoBehaviour
 {
     CircleCollider2D[] colliders;
+    SpringTuple[] springs;
     CircleCollider2D centerCollider;
     SpriteShapeController shapeController;
     public Sprite sprite;
 
     public int SubBallCount = 9;
     public int Frequency = 7;
+
+    [Range(0.5f, 2f)]
+    public float DebugRadius = 0.5f;
+    [Range(0.5f, 2f)]
+    public float DebugSubRadius = 0.5f;
+    public bool DebugVisual = false;
+
+    private bool _debugVisual = false;
+
+    private float _radius = 0.5f;
+    public float Radius
+    {
+        get => _radius;
+        set
+        {
+            updateRadius(value);
+            _radius = value;
+        }
+    }
+
+    private float _subRadius = 0.5f;
+    public float SubRadius
+    {
+        get => _subRadius;
+        set
+        {
+            _subRadius = value;
+            updateSubBallRadius(_subRadius);
+        }
+    }
 
     public List<ContactPoint2D> tempContactList = new List<ContactPoint2D>();
     public List<ContactPoint2D> tempContactList1 = new List<ContactPoint2D>();
@@ -25,7 +63,8 @@ public class SoftBody2D : MonoBehaviour
 
         var length = SubBallCount;
         colliders = new CircleCollider2D[length];
-        var radius = 0.5f;
+        springs = new SpringTuple[length];
+        var radius = _radius;
         var stepDeg = 360 / length;
         for (var i = 0; i < length; i++)
         {
@@ -76,6 +115,13 @@ public class SoftBody2D : MonoBehaviour
             centerSpring.autoConfigureDistance = false;
             centerSpring.distance = Vector2.Distance(centerCollider.transform.position, cur.transform.position);
 
+            springs[i] = new SpringTuple()
+            {
+                connectToPrevious = preSpring,
+                connectToCenter = centerSpring,
+                connectToNext = nextSpring
+            };
+
             preSpring.frequency = nextSpring.frequency = centerSpring.frequency = Frequency;
         }
 
@@ -85,6 +131,23 @@ public class SoftBody2D : MonoBehaviour
     void Update()
     {
         UpdateVerticies();
+#if UNITY_EDITOR
+        if (DebugRadius != Radius)
+        {
+            Radius = DebugRadius;
+        }
+
+        if (DebugSubRadius != SubRadius)
+        {
+            SubRadius = DebugSubRadius;
+        }
+
+        if (DebugVisual != _debugVisual)
+        {
+            _debugVisual = DebugVisual;
+            updateDebugVisual(_debugVisual);
+        }
+#endif
     }
 
     void InitVerticies()
@@ -102,16 +165,23 @@ public class SoftBody2D : MonoBehaviour
     {
         for (int i = 0; i < SubBallCount; i++)
         {
-            // var pre = colliders[((i - 1) + SubBallCount) % SubBallCount];
             var cur = colliders[i];
-            // var next = colliders[((i + 1) + SubBallCount) % SubBallCount];
-            shapeController.spline.SetPosition(i, cur.transform.localPosition + cur.transform.localPosition.normalized * 0.23f);
+
+            try
+            {
+                // var pre = colliders[((i - 1) + SubBallCount) % SubBallCount];
+                // var next = colliders[((i + 1) + SubBallCount) % SubBallCount];
+                shapeController.spline.SetPosition(i, cur.transform.localPosition + cur.transform.localPosition.normalized * 0.2f);
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning(e);
+            }
+
             shapeController.spline.SetLeftTangent(i, Quaternion.Euler(0, 0, -90) * cur.transform.localPosition * 0.2f);
             shapeController.spline.SetRightTangent(i, Quaternion.Euler(0, 0, 90) * cur.transform.localPosition * 0.2f);
         }
     }
-
-
 
     private bool _isOnGround = false;
     public bool IsOnground => _isOnGround;
@@ -135,11 +205,10 @@ public class SoftBody2D : MonoBehaviour
         _isOnGround = (tempContactList1.Count > 0);
     }
 
-    public bool Jump()
+    public bool Jump(float verticalVel)
     {
         if (!_isOnGround) return false;
         Debug.Log("jump");
-        var verticalVel = 5f;
         {
             var sourceVel = centerCollider.attachedRigidbody.velocity;
             sourceVel.y = verticalVel;
@@ -153,5 +222,49 @@ public class SoftBody2D : MonoBehaviour
             c.attachedRigidbody.velocity = sourceVel;
         }
         return true;
+    }
+
+    private void updateRadius(float inRadius)
+    {
+        inRadius /= 2;
+        var stepDeg = 360 / SubBallCount;
+        var circle_chord_length = 2 * inRadius * Mathf.Sin(stepDeg * Mathf.Deg2Rad / 2);
+        Debug.Log("circle" + circle_chord_length);
+        for (var i = 0; i < SubBallCount; i++)
+        {
+            var c = colliders[i];
+            var length = SubBallCount;
+
+            var springTuple = springs[i];
+            var preSpring = springTuple.connectToPrevious;
+            var centerSpring = springTuple.connectToCenter;
+            var nextSpring = springTuple.connectToNext;
+
+            preSpring.distance = nextSpring.distance = circle_chord_length;
+            centerSpring.distance = inRadius;
+        }
+
+        centerCollider.attachedRigidbody.AddForce(new Vector2(0, 2f));
+    }
+
+    private void updateSubBallRadius(float inRadius)
+    {
+        for (var i = 0; i < SubBallCount; i++)
+        {
+            var c = colliders[i];
+            c.transform.localScale = new Vector2(inRadius, inRadius);
+        }
+    }
+
+    private void updateDebugVisual(bool inDebugVisual)
+    {
+        for (var i = 0; i < SubBallCount; i++)
+        {
+            var c = colliders[i];
+            var sp = c.GetComponent<SpriteRenderer>();
+            var color = sp.color;
+            color.a = inDebugVisual ? 0.5f : 0;
+            sp.color = color;
+        }
     }
 }
