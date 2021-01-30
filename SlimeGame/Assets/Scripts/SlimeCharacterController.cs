@@ -9,12 +9,16 @@ public class SlimeCharacterController : MonoBehaviour
     public float jumpVel = 7;
     public float runSpeed = 4;
 
+    public GameObject bulletPrefab;
     private bool _jumpState = false;
+
+    private Camera mainCamera;
 
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         softBody = GetComponent<SoftBody2D>();
+        mainCamera = Camera.main;
     }
 
     void Update()
@@ -23,6 +27,14 @@ public class SlimeCharacterController : MonoBehaviour
         if (jump)
         {
             _jumpState = true;
+        }
+
+        var fire = Input.GetMouseButtonDown(0);
+        if (fire)
+        {
+            var worldClickPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log(worldClickPos);
+            Bb((worldClickPos - transform.position).normalized);
         }
     }
 
@@ -40,5 +52,12 @@ public class SlimeCharacterController : MonoBehaviour
             softBody.Jump(jumpVel);
         };
         _jumpState = false;
+    }
+
+    void Bb(Vector2 initSpeed)
+    {
+        var obj = GameObject.Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        var bb = obj.GetComponent<BbBullet>();
+        bb._initDir = initSpeed;
     }
 }
