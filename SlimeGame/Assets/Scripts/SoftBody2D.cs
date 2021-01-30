@@ -53,6 +53,7 @@ public class SoftBody2D : MonoBehaviour
 
     public List<ContactPoint2D> tempContactList = new List<ContactPoint2D>();
     public List<ContactPoint2D> tempContactList1 = new List<ContactPoint2D>();
+    public int subBallLayer = LayerMask.NameToLayer("SubBall");
 
 
     void Awake()
@@ -70,6 +71,7 @@ public class SoftBody2D : MonoBehaviour
         {
             var gameObject = new GameObject();
             gameObject.transform.parent = transform;
+            gameObject.layer = subBallLayer;
             gameObject.transform.localScale = new Vector3(
                 0.5f, 0.5f, 1
             );
