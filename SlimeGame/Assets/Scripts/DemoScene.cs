@@ -72,6 +72,7 @@ public class DemoScene : MonoBehaviour
     {
         var dt = Time.fixedDeltaTime;
         var horizontal = Input.GetAxisRaw("Horizontal");
-        Controller.SetWalkDirection(horizontal * dt * runSpeed, 0);
+        var vertical = Input.GetAxis("Vertical");
+        Controller.SetWalkDirection(horizontal * dt * runSpeed, vertical* dt * runSpeed);
     }
 }

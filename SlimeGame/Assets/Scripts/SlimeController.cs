@@ -60,9 +60,11 @@ public class SlimeController : MonoBehaviour, ICharacterController
             _gravityVerticalVelocity = 0;
         }
 
+        _isOnGround = false;
+
+        Recover();
         HandleVertical(dt);
         HandleHorizontal(dt);
-        Recover();
     }
 
 
@@ -143,30 +145,40 @@ public class SlimeController : MonoBehaviour, ICharacterController
     private Collider2D[] _tempCollider = new Collider2D[20];
     protected bool Recover()
     {
-        var scale = Mathf.Max(transform.localScale.x, transform.localScale.y);
-        var hitCount = Physics2D.OverlapCircleNonAlloc(_body.position, _collider.radius * scale, _tempCollider);
-        _isOnGround = false;
+        // var scale = Mathf.Max(transform.localScale.x, transform.localScale.y);
+        // var hitCount = Physics2D.OverlapCircleNonAlloc(_body.position, _collider.radius * scale, _tempCollider);
+        // _isOnGround = false;
+        // var sourcePos = _body.position;
+        // if (hitCount <= 0) return false;
+        // for (var i = 0; i < hitCount; i++)
+        // {
+        //     var c = _tempCollider[i];
+        //     if (c == _collider) continue;
+        //     var distance = c.Distance(_collider);
+        //     if (distance.isOverlapped)
+        //     {
+        //         var angle = Vector2.Angle(distance.normal, Vector2.up);
+        //         Debug.Log($"angle: {angle}");
+        //         if (angle < slopeLimt && _gravityVerticalVelocity < 0)
+        //         {
+        //             _isOnGround = true;
+        //         }
+        //         sourcePos += (distance.pointA - distance.pointB) * 0.8f;
+        //     }
+        // }
+
+        // _body.position = sourcePos;
+        _body.GetContacts(_tempContacts);
         var sourcePos = _body.position;
-        if (hitCount <= 0) return false;
-        for (var i = 0; i < hitCount; i++)
+        foreach (var c in _tempContacts)
         {
-            var c = _tempCollider[i];
-            if (c == _collider) continue;
-            var distance = c.Distance(_collider);
-            if (distance.isOverlapped)
-            {
-                var angle = Vector2.Angle(distance.normal, Vector2.up);
-                Debug.Log($"angle: {angle}");
-                if (angle < slopeLimt && _gravityVerticalVelocity < 0)
-                {
-                    _isOnGround = true;
-                }
-                sourcePos += (distance.pointA - distance.pointB) * 0.8f;
-            }
+            sourcePos += Mathf.Abs(c.separation) * c.normal;
+            _isOnGround = true;
         }
 
         _body.position = sourcePos;
         return _isOnGround;
+        return true;
     }
 
     protected bool ShouldCollide(Collider2D a, Collider2D b)
