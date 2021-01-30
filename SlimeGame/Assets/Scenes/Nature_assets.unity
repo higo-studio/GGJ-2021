@@ -5573,6 +5573,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 972453799}
+  - component: {fileID: 972453800}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Untagged
@@ -5597,6 +5598,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &972453800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972453798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805bb7e1d8dba5940b423cb3b072b2ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 1599863657}
+  softBody: {fileID: 1599863659}
 --- !u!4 &974771332 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4998522862941974, guid: 1753d53c838270d479ba970c43ad019b,
@@ -5951,7 +5966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd89c9fbee854944ca4662a855c512a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1040436697}
+  target: {fileID: 1599863654}
 --- !u!1001 &1126109344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6911,6 +6926,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime
       objectReference: {fileID: 0}
+    - target: {fileID: 1423005892391490563, guid: bd8687b12147e9847835a2842e93a79a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd8687b12147e9847835a2842e93a79a, type: 3}
 --- !u!4 &1575526429 stripped
@@ -7103,8 +7123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 07968fb8df2f47d4b817c765500baa5e, type: 3}
-  SubBallCount: 9
-  Frequency: 5
+  SubBallCount: 12
+  Frequency: 7
 --- !u!1971053207 &1599863660
 SpriteShapeRenderer:
   m_ObjectHideFlags: 0

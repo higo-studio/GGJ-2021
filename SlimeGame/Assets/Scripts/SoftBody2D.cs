@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.U2D;
 using System;
+using System.Collections.Generic;
 
 public class SoftBody2D : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class SoftBody2D : MonoBehaviour
 
     public int SubBallCount = 9;
     public int Frequency = 7;
+
+    public List<ContactPoint2D> tempContactList = new List<ContactPoint2D>();
+    public List<ContactPoint2D> tempContactList1 = new List<ContactPoint2D>();
 
 
     void Awake()
@@ -43,6 +47,7 @@ public class SoftBody2D : MonoBehaviour
             var body = gameObject.AddComponent<Rigidbody2D>();
             body.freezeRotation = true;
             body.interpolation = RigidbodyInterpolation2D.Interpolate;
+            body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             var circle = gameObject.AddComponent<CircleCollider2D>();
             // circle.radius = radius;
             colliders[i] = circle;
@@ -100,9 +105,46 @@ public class SoftBody2D : MonoBehaviour
             // var pre = colliders[((i - 1) + SubBallCount) % SubBallCount];
             var cur = colliders[i];
             // var next = colliders[((i + 1) + SubBallCount) % SubBallCount];
-            shapeController.spline.SetPosition(i, cur.transform.localPosition + cur.transform.localPosition.normalized * 0.2f);
+            shapeController.spline.SetPosition(i, cur.transform.localPosition + cur.transform.localPosition.normalized * 0.23f);
             shapeController.spline.SetLeftTangent(i, Quaternion.Euler(0, 0, -90) * cur.transform.localPosition * 0.2f);
             shapeController.spline.SetRightTangent(i, Quaternion.Euler(0, 0, 90) * cur.transform.localPosition * 0.2f);
         }
+    }
+
+
+
+    private bool _isOnGround = false;
+    public bool IsOnground => _isOnGround;
+
+    void FixedUpdate()
+    {
+        tempContactList1.Clear();
+        foreach (var c in colliders)
+        {
+            c.GetContacts(tempContactList);
+            tempContactList1.AddRange(tempContactList);
+        }
+
+        foreach (var c in tempContactList1)
+        {
+            if (c.collider == centerCollider)
+            {
+                Debug.Log("asdasd");
+            }
+        }
+        _isOnGround = (tempContactList1.Count > 0);
+    }
+
+    public bool Jump()
+    {
+        if (!_isOnGround) return false;
+        Debug.Log("jump");
+        var impluse = new Vector2(0, 5f);
+        centerCollider.attachedRigidbody.AddForce(impluse, ForceMode2D.Impulse);
+        foreach(var c in colliders)
+        {
+            c.attachedRigidbody.AddForce(impluse, ForceMode2D.Impulse);
+        }
+        return true;
     }
 }
