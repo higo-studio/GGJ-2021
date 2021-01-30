@@ -139,11 +139,18 @@ public class SoftBody2D : MonoBehaviour
     {
         if (!_isOnGround) return false;
         Debug.Log("jump");
-        var impluse = new Vector2(0, 5f);
-        centerCollider.attachedRigidbody.AddForce(impluse, ForceMode2D.Impulse);
-        foreach(var c in colliders)
+        var verticalVel = 5f;
         {
-            c.attachedRigidbody.AddForce(impluse, ForceMode2D.Impulse);
+            var sourceVel = centerCollider.attachedRigidbody.velocity;
+            sourceVel.y = verticalVel;
+            centerCollider.attachedRigidbody.velocity = sourceVel;
+        }
+        foreach (var c in colliders)
+        {
+            // c.attachedRigidbody.AddForce(impluse, ForceMode2D.Impulse);
+            var sourceVel = c.attachedRigidbody.velocity;
+            sourceVel.y = verticalVel;
+            c.attachedRigidbody.velocity = sourceVel;
         }
         return true;
     }
