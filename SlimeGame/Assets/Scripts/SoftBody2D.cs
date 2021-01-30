@@ -53,7 +53,7 @@ public class SoftBody2D : MonoBehaviour
 
     public List<ContactPoint2D> tempContactList = new List<ContactPoint2D>();
     public List<ContactPoint2D> tempContactList1 = new List<ContactPoint2D>();
-    public int subBallLayer = LayerMask.NameToLayer("SubBall");
+    public int subBallLayer = 0;
 
 
     void Awake()
