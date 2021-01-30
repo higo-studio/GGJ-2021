@@ -145,40 +145,40 @@ public class SlimeController : MonoBehaviour, ICharacterController
     private Collider2D[] _tempCollider = new Collider2D[20];
     protected bool Recover()
     {
-        // var scale = Mathf.Max(transform.localScale.x, transform.localScale.y);
-        // var hitCount = Physics2D.OverlapCircleNonAlloc(_body.position, _collider.radius * scale, _tempCollider);
-        // _isOnGround = false;
-        // var sourcePos = _body.position;
-        // if (hitCount <= 0) return false;
-        // for (var i = 0; i < hitCount; i++)
-        // {
-        //     var c = _tempCollider[i];
-        //     if (c == _collider) continue;
-        //     var distance = c.Distance(_collider);
-        //     if (distance.isOverlapped)
-        //     {
-        //         var angle = Vector2.Angle(distance.normal, Vector2.up);
-        //         Debug.Log($"angle: {angle}");
-        //         if (angle < slopeLimt && _gravityVerticalVelocity < 0)
-        //         {
-        //             _isOnGround = true;
-        //         }
-        //         sourcePos += (distance.pointA - distance.pointB) * 0.8f;
-        //     }
-        // }
-
-        // _body.position = sourcePos;
-        _body.GetContacts(_tempContacts);
+        var scale = Mathf.Max(transform.localScale.x, transform.localScale.y);
+        var hitCount = Physics2D.OverlapCircleNonAlloc(_body.position, _collider.radius * scale, _tempCollider);
+        _isOnGround = false;
         var sourcePos = _body.position;
-        foreach (var c in _tempContacts)
+        if (hitCount <= 0) return false;
+        for (var i = 0; i < hitCount; i++)
         {
-            sourcePos += Mathf.Abs(c.separation) * c.normal;
-            _isOnGround = true;
+            var c = _tempCollider[i];
+            if (c == _collider) continue;
+            var distance = c.Distance(_collider);
+            if (distance.isOverlapped)
+            {
+                var angle = Vector2.Angle(distance.normal, Vector2.up);
+                Debug.Log($"angle: {angle}");
+                if (angle < slopeLimt && _gravityVerticalVelocity < 0)
+                {
+                    _isOnGround = true;
+                }
+                sourcePos += (distance.pointA - distance.pointB) * 0.8f;
+            }
         }
 
         _body.position = sourcePos;
+        // _body.GetContacts(_tempContacts);
+        // var sourcePos = _body.position;
+        // foreach (var c in _tempContacts)
+        // {
+        //     sourcePos += Mathf.Abs(c.separation) * c.normal;
+        //     _isOnGround = true;
+        // }
+
+        // _body.position = sourcePos;
         return _isOnGround;
-        return true;
+        // return true;
     }
 
     protected bool ShouldCollide(Collider2D a, Collider2D b)

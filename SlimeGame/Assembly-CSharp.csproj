@@ -43,6 +43,7 @@
      <Compile Include="Assets\Scripts\DemoScene.cs" />
      <Compile Include="Assets\Scripts\HeroController.cs" />
      <Compile Include="Assets\Scripts\SlimeController.cs" />
+     <Compile Include="Assets\Scripts\SoftBody2D.cs" />
      <None Include="Assets\FreePixelMob\ReadMe.txt" />
      <None Include="Assets\Nature_pixel_art_assets\pixel_snapping_README.txt" />
     <Reference Include="UnityEngine">
