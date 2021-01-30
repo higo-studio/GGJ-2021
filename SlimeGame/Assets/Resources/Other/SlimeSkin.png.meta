@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-guid: 30fa5a3b538a0d04ebaa5689b5b379d2
+guid: fed31d1a8f15f484cafba6fcc08e3e6e
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 368543389579951487
-    second: slime_0
-  - first:
-      213: -458641133534639524
-    second: slime_1
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -46,7 +40,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -91,49 +85,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: slime_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 11
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f7d3b3c92445d1500800000000000000
-      internalID: 368543389579951487
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slime_1
-      rect:
-        serializedVersion: 2
-        x: 22
-        y: 0
-        width: 34
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c5a094ca15492a9f0800000000000000
-      internalID: -458641133534639524
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
