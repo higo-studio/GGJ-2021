@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
 
 public class Earth : MonoBehaviour, ICube
 {
@@ -44,9 +46,12 @@ public class Earth : MonoBehaviour, ICube
         }
     }
 
-    public Earth(bool isProlluted)
+    TileBase tile;
+
+    public Earth(bool isProlluted, TileBase tile)
     {
         _isProlluted = isProlluted;
+        this.tile = tile;
     }
 
     //被污染(供Player调用)
@@ -56,6 +61,7 @@ public class Earth : MonoBehaviour, ICube
         {
             _isProlluted = true;
         }
+        ChangeCubeTile();
         return Verlies;
     }
 
@@ -66,5 +72,12 @@ public class Earth : MonoBehaviour, ICube
         {
             _isProlluted = true;
         }
+        ChangeCubeTile();
+    }
+
+    
+    void ChangeCubeTile()
+    {
+        
     }
 }

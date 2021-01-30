@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Jelly : MonoBehaviour, ICube
 {
@@ -48,6 +49,13 @@ public class Jelly : MonoBehaviour, ICube
     }
 
 
+    TileBase tile;
+
+    public Jelly(bool isProlluted, TileBase tile)
+    {
+        _isProlluted = isProlluted;
+        this.tile = tile;
+    }
 
 
     //被污染(供Player调用)

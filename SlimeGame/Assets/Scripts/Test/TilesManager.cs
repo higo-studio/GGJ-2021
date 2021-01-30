@@ -48,19 +48,19 @@ public class TilesManager : MonoBehaviour
                     switch (tile.name)
                     {
                         case "collTile_1":
-                            tilesMes[i,j] = new Earth(false);
+                            tilesMes[i,j] = new Earth(false, tile);
                             break;
                         case "collTile_4":
-                            tilesMes[i, j] = new Earth(true);
+                            tilesMes[i, j] = new Earth(true, tile);
                             break;
                         case "collTile_0":
-                            tilesMes[i, j] = new Grass(false);
+                            tilesMes[i, j] = new Grass(false, tile);
                             break;
                         case "collTile_3":
-                            tilesMes[i, j] = new Grass(true);
+                            tilesMes[i, j] = new Grass(true, tile);
                             break;
                         case "collTile_2":
-                            tilesMes[i, j] = new Rock(false);
+                            tilesMes[i, j] = new Rock(false, tile);
                             break;
                             /*
                         case "collTile_1":

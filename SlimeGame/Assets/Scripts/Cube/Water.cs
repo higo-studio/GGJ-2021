@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Water : MonoBehaviour, ICube
 {
@@ -50,7 +51,13 @@ public class Water : MonoBehaviour, ICube
         }
     }
 
-    
+    TileBase tile;
+
+    public Water(bool isProlluted, TileBase tile)
+    {
+        _isProlluted = isProlluted;
+        this.tile = tile;
+    }
 
 
     //被污染(供Player调用)

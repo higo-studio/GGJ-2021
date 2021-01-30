@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Grass : MonoBehaviour, ICube
 {
@@ -44,9 +45,12 @@ public class Grass : MonoBehaviour, ICube
         }
     }
 
-    public Grass(bool isProlluted)
+    TileBase tile;
+
+    public Grass(bool isProlluted, TileBase tile)
     {
         _isProlluted = isProlluted;
+        this.tile = tile;
     }
 
     //被污染(供Player调用)

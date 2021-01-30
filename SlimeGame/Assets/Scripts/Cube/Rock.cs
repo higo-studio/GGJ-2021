@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Rock : MonoBehaviour, ICube
 {
@@ -44,9 +45,12 @@ public class Rock : MonoBehaviour, ICube
         }
     }
 
-    public Rock(bool isProlluted)
+    TileBase tile;
+
+    public Rock(bool isProlluted, TileBase tile)
     {
-        
+        _isProlluted = isProlluted;
+        this.tile = tile;
     }
 
     public float PollutedByRun()
