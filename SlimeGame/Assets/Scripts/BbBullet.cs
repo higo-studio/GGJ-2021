@@ -16,6 +16,7 @@ public class BbBullet : MonoBehaviour
     private RaycastHit2D[] _tempRaycastHitArr = new RaycastHit2D[10];
 
     public Vector2 physicsPos;
+
     protected void FixedUpdate()
     {
         if (isHit) return;
