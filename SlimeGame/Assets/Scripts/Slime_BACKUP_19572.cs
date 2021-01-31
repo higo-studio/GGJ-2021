@@ -1,10 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-<<<<<<< HEAD
-=======
-using UnityEngine.UI;
->>>>>>> 03a1281e0e828ba687d048786133969a28119a6b
 
 public class Slime : MonoBehaviour
 {
@@ -14,21 +10,12 @@ public class Slime : MonoBehaviour
 
     public float MaxHP = 0f;
 
-<<<<<<< HEAD
     //重量
     public float weither = 15f;
 
     public SoftBody2D body;
 
     public TilesManager tilesManager;
-=======
-    public Image HPUI;
-
-    //重量
-    public float weither = 15f;
-
-    //public TilesManager tilesManager;
->>>>>>> 03a1281e0e828ba687d048786133969a28119a6b
 
 
     private void Awake()
@@ -40,14 +27,8 @@ public class Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
-<<<<<<< HEAD
         UpdateState();
         //RunOnTheCube();
-=======
-        //UpdateState();
-        //RunOnTheCube();
-        UpdateHPUI();
->>>>>>> 03a1281e0e828ba687d048786133969a28119a6b
         
     }
 
@@ -61,17 +42,11 @@ public class Slime : MonoBehaviour
     //根据血量更新玩家数值
     void UpdateState()
     {
-<<<<<<< HEAD
         float scale = HP / MaxHP;
         scale *= 1.5f;
         body.DebugRadius = scale;
     }
 
-=======
-
-    }
-/*
->>>>>>> 03a1281e0e828ba687d048786133969a28119a6b
     void RunOnTheCube()
     {
         ICube[] objs = tilesManager.GetTileMesByPosition(transform.position);
@@ -96,11 +71,7 @@ public class Slime : MonoBehaviour
             
         }
     }
-<<<<<<< HEAD
 
-=======
-*/
->>>>>>> 03a1281e0e828ba687d048786133969a28119a6b
     public float GetWeither()
     {
         return weither;
@@ -118,7 +89,6 @@ public class Slime : MonoBehaviour
         Debug.Log("awsl");
     }
 
-<<<<<<< HEAD
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.tag == "Water")
@@ -126,10 +96,5 @@ public class Slime : MonoBehaviour
             Debug.Log("WAter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             Absorb(0.02f);
         }
-=======
-    void UpdateHPUI()
-    {
-        HPUI.fillAmount = HP / MaxHP;
->>>>>>> 03a1281e0e828ba687d048786133969a28119a6b
     }
 }

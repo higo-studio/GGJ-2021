@@ -19,6 +19,8 @@ public class TilesManager : MonoBehaviour
 
     public Tilemap map;
 
+    public Tilemap spriteMap;
+
     public Sprite earth_slime_sprite;
 
     public Sprite grass_slime_sprite;
@@ -38,31 +40,28 @@ public class TilesManager : MonoBehaviour
                 int row_i = i - (int)Mathf.Floor(tilemapTransform.position.x);
                 int colume_j = j - (int)Mathf.Floor(tilemapTransform.position.y);
                 TileBase tile = map.GetTile(new Vector3Int(row_i, colume_j, 0));
+                TileBase tileSprite = spriteMap.GetTile(new Vector3Int(row_i, colume_j, 0));
                 if (tile != null)
                 {
                     
                     switch (tile.name)
                     {
                         case "collTile_1":
-                            tilesMes[i,j] = new Earth(false, (Tile)tile, earth_slime_sprite);
+                            tilesMes[i,j] = new Earth(false, (Tile)tileSprite, earth_slime_sprite);
                             break;
                         case "collTile_4":
-                            tilesMes[i, j] = new Earth(true, (Tile)tile, earth_slime_sprite);
+                            tilesMes[i, j] = new Earth(true, (Tile)tileSprite, earth_slime_sprite);
                             break;
                         case "collTile_0":
-                            tilesMes[i, j] = new Grass(false, (Tile)tile, grass_slime_sprite);
+                            tilesMes[i, j] = new Grass(false, (Tile)tileSprite, grass_slime_sprite);
                             break;
                         case "collTile_3":
-                            tilesMes[i, j] = new Grass(true, (Tile)tile, grass_slime_sprite);
+                            tilesMes[i, j] = new Grass(true, (Tile)tileSprite, grass_slime_sprite);
                             break;
                         case "collTile_2":
                             tilesMes[i, j] = new Rock(false, tile);
                             break;
-                            /*
-                        case "collTile_1":
-                            tilesMes[i, j] = new Rock(true);
-                            break;
-                            */
+                            
                     }
                 }
             }
@@ -98,5 +97,37 @@ public class TilesManager : MonoBehaviour
         return tiles;
     }
 
+    public void ShootOn(Vector2 position, Vector2 normal)
+    {
+        position.x = Mathf.Floor(position.x);
+        position.y = Mathf.Floor(position.y);
+        //Debug.Log(position);
+        Vector3Int _pos = new Vector3Int((int)position.x, (int)position.y, 0);
+        ICube[] tiles = new ICube[4];
+        if ((_pos.y + 1) < row && tilesMes[_pos.x, _pos.y + 1] != null)
+        {
+            tiles[0] = tilesMes[_pos.x, _pos.y + 1];
+        }
+        if ((_pos.y - 1) > -1 && tilesMes[_pos.x, _pos.y - 1] != null)
+        {
+            tiles[1] = tilesMes[_pos.x, _pos.y - 1];
+        }
+        if ((_pos.x - 1) > 0 && tilesMes[_pos.x - 1, _pos.y] != null)
+        {
+            tiles[2] = tilesMes[_pos.x - 1, _pos.y];
+        }
+        if ((_pos.x + 1) < colume && tilesMes[_pos.x + 1, _pos.y] != null)
+        {
+            tiles[3] = tilesMes[_pos.x + 1, _pos.y];
+        }
+
+        foreach (ICube cube in tiles)
+        {
+            if(cube != null)
+            {
+                cube.PollutedByShoot();
+            }
+        }
+    }
     
 }
