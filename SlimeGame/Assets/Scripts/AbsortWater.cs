@@ -6,12 +6,14 @@ public class AbsortWater : MonoBehaviour
     private SlimeCharacterController controller;
     private Slime slime;
 
+    public ParticleSystem sukingParticle;
+
     protected void Awake()
     {
         controller = transform.parent.GetComponent<SlimeCharacterController>();
         slime = transform.parent.GetComponent<Slime>();
+        sukingParticle.gameObject.SetActive(false);
     }
-
 
     private void OnTriggerStay2D(Collider2D collision)
     {
