@@ -13,6 +13,8 @@ public class Slime : MonoBehaviour
     //重量
     public float weither = 15f;
 
+    public SoftBody2D body;
+
     public TilesManager tilesManager;
 
 
@@ -25,7 +27,7 @@ public class Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //UpdateState();
+        UpdateState();
         //RunOnTheCube();
         
     }
@@ -40,7 +42,9 @@ public class Slime : MonoBehaviour
     //根据血量更新玩家数值
     void UpdateState()
     {
-
+        float scale = HP / MaxHP;
+        scale *= 1.5f;
+        body.DebugRadius = scale;
     }
 
     void RunOnTheCube()
@@ -83,5 +87,14 @@ public class Slime : MonoBehaviour
     void Dead()
     {
         Debug.Log("awsl");
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.tag == "Water")
+        {
+            Debug.Log("WAter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            Absorb(0.02f);
+        }
     }
 }

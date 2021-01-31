@@ -133,22 +133,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 208742562}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &164428764
+--- !u!114 &164428768 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7178255096390898333, guid: 9b40b3785545b114b9f0ce85872f73b5,
+    type: 3}
+  m_PrefabInstance: {fileID: 208742562}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164428762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0872674d529e4bf4c9cb6be3438dfff1, type: 3}
+  m_Script: {fileID: 11500000, guid: a68f88f0d9420fa459d8e529c8701a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 20
-  MaxHP: 40
-  weither: 15
-  tilesManager: {fileID: 1618126289}
 --- !u!1 &168671097
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +251,7 @@ GameObject:
   - component: {fileID: 188480459}
   m_Layer: 0
   m_Name: water
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -942,17 +938,17 @@ PrefabInstance:
     - target: {fileID: 7178255096390898321, guid: 9b40b3785545b114b9f0ce85872f73b5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.95
+      value: -13.6
       objectReference: {fileID: 0}
     - target: {fileID: 7178255096390898321, guid: 9b40b3785545b114b9f0ce85872f73b5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.385
+      value: -4.9
       objectReference: {fileID: 0}
     - target: {fileID: 7178255096390898321, guid: 9b40b3785545b114b9f0ce85872f73b5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.6803687
+      value: -2.7672076
       objectReference: {fileID: 0}
     - target: {fileID: 7178255096390898321, guid: 9b40b3785545b114b9f0ce85872f73b5,
         type: 3}
@@ -1004,10 +1000,15 @@ PrefabInstance:
       propertyPath: runSpeed
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7178255096390898332, guid: 9b40b3785545b114b9f0ce85872f73b5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7178255096390898333, guid: 9b40b3785545b114b9f0ce85872f73b5,
         type: 3}
       propertyPath: DebugRadius
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7178255096390898333, guid: 9b40b3785545b114b9f0ce85872f73b5,
         type: 3}
@@ -30491,6 +30492,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1579923661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1579923662}
+  - component: {fileID: 1579923663}
+  - component: {fileID: 1579923665}
+  m_Layer: 0
+  m_Name: SlimeCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1579923662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579923661}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 164428763}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1579923663
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579923661}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.1
+--- !u!114 &1579923665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579923661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0872674d529e4bf4c9cb6be3438dfff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 20
+  MaxHP: 40
+  weither: 15
+  body: {fileID: 164428768}
+  tilesManager: {fileID: 1618126289}
 --- !u!1 &1618126287
 GameObject:
   m_ObjectHideFlags: 0
