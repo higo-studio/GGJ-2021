@@ -29930,31 +29930,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1899398861454795718, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1899398861454795718, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1899398861454795719, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1899398861454795724, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: jumpVel
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2536898895246000394, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3419754639238473406, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
         type: 3}
       propertyPath: m_RootOrder
@@ -30020,16 +29995,6 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 1124993388}
-    - target: {fileID: 8773660549944681082, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: row
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 8773660549944681082, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: colume
-      value: 80
-      objectReference: {fileID: 0}
     - target: {fileID: 8773660549944681082, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
         type: 3}
       propertyPath: spriteMap
