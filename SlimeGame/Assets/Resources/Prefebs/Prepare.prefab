@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 1899398861454795721}
   - component: {fileID: 1899398861454795724}
   - component: {fileID: 8773660550182980235}
+  - component: {fileID: 7178255096465422907}
   m_Layer: 11
   m_Name: SlimeCharacter
   m_TagString: Player
@@ -126,7 +127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1899398861454795719}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.638347, y: 27.178495, z: -0.37372804}
+  m_LocalPosition: {x: -0.8, y: 1.4, z: -0.37372804}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1899398860004028214}
@@ -164,12 +165,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.07369232, y: -0.49387693}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 1.7493577
 --- !u!114 &1899398861454795722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,14 +347,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2545ee7cb5dcd243b29150b6d3c84ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpVel: 8
-  runSpeed: 8
+  minJumpVel: 2
+  maxJumpVel: 8
+  jumpWithHpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minSoftBodyRadius: 0.5
+  maxSoftBodyRadius: 2
+  softBodyRadiusWithHpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  runSpeed: 5
   aimCursorTxt: {fileID: 0}
   normalCursorTxt: {fileID: 0}
   AimSimulateTime: 1
   bulletPrefab: {fileID: 4949204499014698042, guid: 1e6608ac267d6c84b8f1481bb596b821,
     type: 3}
   airDumping: 0.5
+  enableClimb: 0
   AimLineSimulationTime: 1
 --- !u!114 &8773660550182980235
 MonoBehaviour:
@@ -372,6 +425,23 @@ MonoBehaviour:
   weither: 15
   body: {fileID: 1899398861454795722}
   tilesManager: {fileID: 8773660549944681082}
+  HpUI: {fileID: 2536898896011721301}
+--- !u!58 &7178255096465422907
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899398861454795719}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.06704795, y: -0.08044028}
+  serializedVersion: 2
+  m_Radius: 1.4645089
 --- !u!1 &2536898895246000398
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,8 +868,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6d6dba8b2574547b60366051cc6b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  row: 0
-  colume: 0
+  row: 50
+  colume: 80
   tilemapTransform: {fileID: 0}
   map: {fileID: 0}
   spriteMap: {fileID: 0}

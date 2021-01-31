@@ -29892,18 +29892,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28854ada27941e147bd1dc1ce815d7ad, type: 3}
---- !u!114 &2009101467 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2536898896011721301, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-    type: 3}
-  m_PrefabInstance: {fileID: 8773660550228744693}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2142800795 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4729956055773372540, guid: 28854ada27941e147bd1dc1ce815d7ad,
@@ -29935,22 +29923,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8773660550228744693}
   m_PrefabAsset: {fileID: 0}
---- !u!58 &7178255096465422907
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7178255096465422898}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.06704795, y: -0.08044028}
-  serializedVersion: 2
-  m_Radius: 1.4645089
 --- !u!1001 &8773660550228744693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29958,51 +29930,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1899398861454795718, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1899398861454795718, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1899398861454795723, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: m_Radius
-      value: 1.7493577
-      objectReference: {fileID: 0}
-    - target: {fileID: 1899398861454795723, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: -0.07369232
-      objectReference: {fileID: 0}
-    - target: {fileID: 1899398861454795723, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -0.49387693
-      objectReference: {fileID: 0}
-    - target: {fileID: 1899398861454795723, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1899398861454795724, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: jumpVel
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1899398861454795724, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: runSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2536898895246000394, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3419754639238473406, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
         type: 3}
       propertyPath: m_RootOrder
@@ -30070,16 +29997,6 @@ PrefabInstance:
       objectReference: {fileID: 1124993388}
     - target: {fileID: 8773660549944681082, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
         type: 3}
-      propertyPath: row
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 8773660549944681082, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: colume
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 8773660549944681082, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
       propertyPath: spriteMap
       value: 
       objectReference: {fileID: 795003981}
@@ -30088,10 +30005,5 @@ PrefabInstance:
       propertyPath: tilemapTransform
       value: 
       objectReference: {fileID: 1124993386}
-    - target: {fileID: 8773660550182980235, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
-        type: 3}
-      propertyPath: HpUI
-      value: 
-      objectReference: {fileID: 2009101467}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762bfd5dddf0ea04bacbc427f7b731f5, type: 3}
