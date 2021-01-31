@@ -38,6 +38,11 @@ public class BbBullet : MonoBehaviour
             transform.Translate(result.distance * deltaPos.normalized);
             Debug.Log("BbBullet: " + result.collider.name);
             Destroy(gameObject, 1);
+
+
+            var effects = EffectManager.ins;
+            effects.GenHitEffect(result.point, result.normal);
+            break;
         }
 
         if (!isHit)
