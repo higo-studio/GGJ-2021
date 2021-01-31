@@ -14,6 +14,8 @@ public class BbBullet : MonoBehaviour
     public LayerMask layerMask = 0;
 
     private RaycastHit2D[] _tempRaycastHitArr = new RaycastHit2D[10];
+
+    public Vector2 physicsPos;
     protected void FixedUpdate()
     {
         if (isHit) return;
@@ -35,8 +37,12 @@ public class BbBullet : MonoBehaviour
             isHit = true;
             Speed = 0;
             GravityRate = 0;
-            transform.Translate(result.distance * deltaPos.normalized);
+            physicsPos += (result.distance * deltaPos.normalized);
+            Debug.Log(result.collider);
             Debug.Log("BbBullet: " + result.collider.name);
+
+            // Manafer
+
             Destroy(gameObject, 1);
 
 
@@ -47,7 +53,12 @@ public class BbBullet : MonoBehaviour
 
         if (!isHit)
         {
-            transform.Translate(deltaPos);
+            physicsPos += (deltaPos);
         }
+    }
+
+    protected void Update()
+    {
+        transform.position = Vector2.Lerp(transform.position, physicsPos, 0.8f);
     }
 }

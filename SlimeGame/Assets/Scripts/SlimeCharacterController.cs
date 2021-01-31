@@ -62,10 +62,19 @@ public class SlimeCharacterController : MonoBehaviour
     void FixedUpdate()
     {
         var horitonal = Input.GetAxisRaw("Horizontal");
+        var vertical = Input.GetAxisRaw("Vertical");
 
         // var sourVel = body.velocity;
         // sourVel.x = horitonal * runSpeed * (softBody.IsOnground ? 1 : airDumping);
         // body.velocity = sourVel;
+        softBody.GravityRate = softBody.IsOnWall ? 0 : 1;
+        if (softBody.IsOnWall)
+        {
+            var sourceVel = body.velocity;
+            sourceVel.y = vertical * runSpeed;
+            body.velocity = sourceVel;
+        }
+
         if (softBody.IsOnground)
         {
             var sourceVel = body.velocity;
@@ -88,8 +97,7 @@ public class SlimeCharacterController : MonoBehaviour
         }
 
 
-        Debug.Log($"IsOnGround: {softBody.IsOnground}");
-        if (_jumpState && softBody.IsOnground)
+        if (_jumpState && (softBody.IsOnground || softBody.IsOnWall))
         {
             softBody.Jump(jumpVel);
             _velBroken = false;
@@ -101,6 +109,7 @@ public class SlimeCharacterController : MonoBehaviour
     {
         var obj = GameObject.Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         var bb = obj.GetComponent<BbBullet>();
+        bb.physicsPos = transform.position;
         bb._initDir = initSpeed;
         bb.Speed = speed;
     }

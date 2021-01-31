@@ -57,6 +57,15 @@ public class SoftBody2D : MonoBehaviour
     [Range(0f, 90f)]
     public float slopeLimt = 70f;
 
+    private float _gravityRate = 1f;
+    public float GravityRate {
+        get => _gravityRate;
+        set {
+            _gravityRate = value;
+            updateGravityRate(value);
+        }
+    }
+
 
     void Awake()
     {
@@ -69,6 +78,7 @@ public class SoftBody2D : MonoBehaviour
         springs = new SpringTuple[length];
         var radius = _radius;
         var stepDeg = 360 / length;
+        centerCollider.attachedRigidbody.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         for (var i = 0; i < length; i++)
         {
             var gameObject = new GameObject();
@@ -118,6 +128,7 @@ public class SoftBody2D : MonoBehaviour
             centerSpring.connectedBody = centerCollider.attachedRigidbody;
             centerSpring.autoConfigureDistance = false;
             centerSpring.distance = Vector2.Distance(centerCollider.transform.position, cur.transform.position);
+
             springs[i] = new SpringTuple()
             {
                 connectToPrevious = preSpring,
@@ -125,7 +136,8 @@ public class SoftBody2D : MonoBehaviour
                 connectToNext = nextSpring
             };
 
-            preSpring.frequency = nextSpring.frequency = centerSpring.frequency = Frequency;
+            preSpring.frequency = nextSpring.frequency = Frequency;
+            centerSpring.frequency = Frequency  * 1.5f;
         }
 
         InitVerticies();
@@ -187,10 +199,13 @@ public class SoftBody2D : MonoBehaviour
     }
 
     private bool _isOnGround = false;
+    private bool _isOnWall = false;
     public bool IsOnground => _isOnGround;
+    public bool IsOnWall => _isOnWall;
 
     void FixedUpdate()
     {
+        _isOnWall = false;
         _isOnGround = false;
         tempContactList1.Clear();
         foreach (var c in colliders)
@@ -201,7 +216,10 @@ public class SoftBody2D : MonoBehaviour
 
         foreach (var c in tempContactList1)
         {
-            if (c.collider.gameObject.layer == gameObject.layer)
+            if (
+                c.collider.gameObject.layer == subBallLayer
+                || c.collider.gameObject.layer == centerCollider.gameObject.layer
+            )
             {
                 continue;
             }
@@ -209,6 +227,7 @@ public class SoftBody2D : MonoBehaviour
             var normalAngle = Vector2.Angle(Vector2.up, c.normal);
             if (normalAngle > slopeLimt)
             {
+                _isOnWall = true;
                 continue;
             }
             _isOnGround = true;
@@ -217,7 +236,7 @@ public class SoftBody2D : MonoBehaviour
 
     public bool Jump(float verticalVel)
     {
-        if (!_isOnGround) return false;
+        if (!(_isOnGround || _isOnWall)) return false;
         Debug.Log("jump");
         {
             var sourceVel = centerCollider.attachedRigidbody.velocity;
@@ -275,6 +294,15 @@ public class SoftBody2D : MonoBehaviour
             var color = sp.color;
             color.a = inDebugVisual ? 0.5f : 0;
             sp.color = color;
+        }
+    }
+
+    private void updateGravityRate(float rate)
+    {
+        centerCollider.attachedRigidbody.gravityScale = rate;
+        foreach(var c in colliders)
+        {
+            c.attachedRigidbody.gravityScale = rate;
         }
     }
 }
