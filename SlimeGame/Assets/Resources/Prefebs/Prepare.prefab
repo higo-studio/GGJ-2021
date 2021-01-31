@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &724558590377532634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9018709721320191405}
+  - component: {fileID: 3234278176428601431}
+  - component: {fileID: 2946589959195189464}
+  m_Layer: 9
+  m_Name: WaterTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9018709721320191405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724558590377532634}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1899398861454795718}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &3234278176428601431
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724558590377532634}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.4}
+  serializedVersion: 2
+  m_Radius: 2
+--- !u!114 &2946589959195189464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724558590377532634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d733cb0573a1b4c9bb79bde9880196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1899398860004028215
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +171,7 @@ GameObject:
   - component: {fileID: 1899398861454795721}
   - component: {fileID: 1899398861454795724}
   - component: {fileID: 8773660550182980235}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: SlimeCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -130,6 +190,8 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1899398860004028214}
+  - {fileID: 3620927975668311504}
+  - {fileID: 9018709721320191405}
   m_Father: {fileID: 3419754639238473406}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -346,14 +408,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2545ee7cb5dcd243b29150b6d3c84ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpVel: 8
-  runSpeed: 8
-  aimCursorTxt: {fileID: 0}
-  normalCursorTxt: {fileID: 0}
+  minJumpVel: 5
+  maxJumpVel: 10
+  jumpWithHpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minSoftBodyRadius: 0.5
+  maxSoftBodyRadius: 1.75
+  softBodyRadiusWithHpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  runSpeed: 6
+  aimCursorTxt: {fileID: 2800000, guid: 7c99c4aee628c3c43af462a41ceb94b3, type: 3}
+  normalCursorTxt: {fileID: 2800000, guid: 0182db13730df0642813b24b0113d429, type: 3}
   AimSimulateTime: 1
   bulletPrefab: {fileID: 4949204499014698042, guid: 1e6608ac267d6c84b8f1481bb596b821,
     type: 3}
   airDumping: 0.5
+  enableClimb: 0
   AimLineSimulationTime: 1
 --- !u!114 &8773660550182980235
 MonoBehaviour:
@@ -372,6 +486,9 @@ MonoBehaviour:
   weither: 15
   body: {fileID: 1899398861454795722}
   tilesManager: {fileID: 8773660549944681082}
+  HpUI: {fileID: 2536898896011721301}
+  deathAnimation: {fileID: 8149291644626307684, guid: 090349f4ed264374185153abdd9f7d13,
+    type: 3}
 --- !u!1 &2536898895246000398
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,3 +1053,63 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!1 &8914948045824693053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3620927975668311504}
+  - component: {fileID: 822489493333902333}
+  - component: {fileID: 1417604058961999265}
+  m_Layer: 12
+  m_Name: CollectBallTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3620927975668311504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8914948045824693053}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1899398861454795718}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &822489493333902333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8914948045824693053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ec5f736ecbd10a4fab169cb2c11565f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &1417604058961999265
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8914948045824693053}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 4

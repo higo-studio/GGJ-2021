@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CollectBall : MonoBehaviour
+public class AbsortWater : MonoBehaviour
 {
     private SlimeCharacterController controller;
     private Slime slime;
@@ -12,19 +12,15 @@ public class CollectBall : MonoBehaviour
         slime = transform.parent.GetComponent<Slime>();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        var bullet = other.GetComponent<BbBullet>();
-        if (bullet == null) return;
-        if (!bullet.isHit) return;
-        Debug.Log("OnTriggerEnter2D" + other.name);
-        bullet.follow = gameObject;
-    }
 
-    public void Recover()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        controller.CollectBall();
-
+        if (collision.tag == "Water")
+        {
+            Debug.Log("WAter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            slime.Absorb(0.02f, true);
+            controller.RefreshRadius();
+        }
     }
     // void OnTriggerStay2D(Collider2D other)
     // {

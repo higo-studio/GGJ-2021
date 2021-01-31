@@ -114,6 +114,7 @@ public class SlimeCharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
+        Debug.Log($"wall: {softBody.IsOnWall}, ground: {softBody.IsOnground}");
         var horitonal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
 
@@ -151,9 +152,9 @@ public class SlimeCharacterController : MonoBehaviour
         }
 
 
-        if (_jumpState && (softBody.IsOnground || softBody.IsOnWall))
+        if (_jumpState && (softBody.IsOnground || (softBody.IsOnWall && enableClimb)))
         {
-            if (softBody.IsOnWall && enableClimb)
+            if (softBody.IsOnWall)
             {
                 var sourceVel = body.velocity;
                 sourceVel.x = softBody.HitNormal.x * runSpeed * 5;
@@ -211,13 +212,8 @@ public class SlimeCharacterController : MonoBehaviour
         return (aimLinePointArr, count);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    public void RefreshRadius()
     {
-        if (collision.tag == "Water")
-        {
-            Debug.Log("WAter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            slime.Absorb(0.02f, true);
-            softBody.DebugRadius = softBodyRadius;
-        }
+        softBody.DebugRadius = softBodyRadius;
     }
 }
