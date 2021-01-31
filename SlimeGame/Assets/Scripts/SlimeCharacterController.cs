@@ -39,6 +39,7 @@ public class SlimeCharacterController : MonoBehaviour
     private Slime slime;
 
     private Vector3[] aimLinePointArr = new Vector3[1000];
+    // private 
 
     void Awake()
     {
@@ -113,6 +114,7 @@ public class SlimeCharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
+        Debug.Log($"wall: {softBody.IsOnWall}, ground: {softBody.IsOnground}");
         var horitonal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
 
@@ -150,9 +152,9 @@ public class SlimeCharacterController : MonoBehaviour
         }
 
 
-        if (_jumpState && (softBody.IsOnground || softBody.IsOnWall))
+        if (_jumpState && (softBody.IsOnground || (softBody.IsOnWall && enableClimb)))
         {
-            if (softBody.IsOnWall && enableClimb)
+            if (softBody.IsOnWall)
             {
                 var sourceVel = body.velocity;
                 sourceVel.x = softBody.HitNormal.x * runSpeed * 5;
@@ -163,7 +165,6 @@ public class SlimeCharacterController : MonoBehaviour
         };
         _jumpState = false;
 
-        Debug.Log(softBody.HitNormal);
     }
 
     void Bb(Vector2 initSpeed, float speed)
@@ -180,6 +181,12 @@ public class SlimeCharacterController : MonoBehaviour
         bb.Speed = speed;
 
         slime.Hurt(1);
+        softBody.DebugRadius = softBodyRadius;
+    }
+
+    public void CollectBall()
+    {
+        slime.Absorb(1);
         softBody.DebugRadius = softBodyRadius;
     }
 
@@ -203,5 +210,10 @@ public class SlimeCharacterController : MonoBehaviour
         }
 
         return (aimLinePointArr, count);
+    }
+
+    public void RefreshRadius()
+    {
+        softBody.DebugRadius = softBodyRadius;
     }
 }
