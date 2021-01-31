@@ -15,6 +15,7 @@ public class SlimeCharacterController : MonoBehaviour
 
     public GameObject bulletPrefab;
     public float airDumping = 0.5f;
+    public bool enableClimb = false;
     private bool _jumpState = false;
     private bool _velBroken = false;
 
@@ -100,8 +101,9 @@ public class SlimeCharacterController : MonoBehaviour
         // var sourVel = body.velocity;
         // sourVel.x = horitonal * runSpeed * (softBody.IsOnground ? 1 : airDumping);
         // body.velocity = sourVel;
-        softBody.GravityRate = softBody.IsOnWall ? 0 : 1;
-        if (softBody.IsOnWall)
+        softBody.GravityRate = softBody.IsOnWall && enableClimb ? 0 : 1;
+
+        if (softBody.IsOnWall && enableClimb)
         {
             var sourceVel = body.velocity;
             sourceVel.y = vertical * runSpeed;
@@ -132,7 +134,7 @@ public class SlimeCharacterController : MonoBehaviour
 
         if (_jumpState && (softBody.IsOnground || softBody.IsOnWall))
         {
-            if (softBody.IsOnWall)
+            if (softBody.IsOnWall && enableClimb)
             {
                 var sourceVel = body.velocity;
                 sourceVel.x = softBody.HitNormal.x * runSpeed * 5;
