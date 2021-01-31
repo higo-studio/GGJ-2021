@@ -7,10 +7,11 @@ public class WaterMap : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Slime2 slime = collision.GetComponent<Slime2>();
+        Slime slime = collision.GetComponent<Slime>();
         if(slime != null)
         {
             //xishou
+            slime.Absorb(0.02f);
         }
     }
 

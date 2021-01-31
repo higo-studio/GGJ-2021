@@ -6,12 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Resources/Animation/gear/door1/Scenes/Episode1.unity
-    guid: e9ea40bee18f7e3489b62ecd813086ab
+    path: Assets/Scenes/Main.unity
+    guid: 787f6bb9735a6564d8a4c614df8c0524
+  - enabled: 1
+    path: Assets/Scenes/Episode1.unity
+    guid: 933902f43a41d7e49ab2e94ccf28372a
   - enabled: 1
     path: Assets/Scenes/Episode2.unity
     guid: 21271a21804b0c8499ae0fd7e3ccd723
   - enabled: 1
     path: Assets/Scenes/Episode3.unity
     guid: 1e4721b2e0c36164ebaad7d1eb4116ea
+  - enabled: 1
+    path: Assets/Scenes/End.unity
+    guid: f0c22185e305a5d4eadfe6e76e114a62
   m_configObjects: {}
