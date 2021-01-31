@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Slime : MonoBehaviour
 {
@@ -17,13 +19,18 @@ public class Slime : MonoBehaviour
 
     public TilesManager tilesManager;
 
+    public Image HpUI;
 
     private void Awake()
     {
         
     }
 
-    
+
+    private void Update()
+    {
+        HpUI.fillAmount = HP / MaxHP;
+    }
 
     private void FixedUpdate()
     {
