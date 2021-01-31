@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Slime : MonoBehaviour
 {
@@ -11,12 +10,12 @@ public class Slime : MonoBehaviour
 
     public float MaxHP = 0f;
 
-    public Image HPUI;
-
     //重量
     public float weither = 15f;
 
-    //public TilesManager tilesManager;
+    public SoftBody2D body;
+
+    public TilesManager tilesManager;
 
 
     private void Awake()
@@ -28,9 +27,8 @@ public class Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //UpdateState();
+        UpdateState();
         //RunOnTheCube();
-        UpdateHPUI();
         
     }
 
@@ -44,9 +42,11 @@ public class Slime : MonoBehaviour
     //根据血量更新玩家数值
     void UpdateState()
     {
-
+        float scale = HP / MaxHP;
+        scale *= 1.5f;
+        body.DebugRadius = scale;
     }
-/*
+
     void RunOnTheCube()
     {
         ICube[] objs = tilesManager.GetTileMesByPosition(transform.position);
@@ -71,7 +71,7 @@ public class Slime : MonoBehaviour
             
         }
     }
-*/
+
     public float GetWeither()
     {
         return weither;
@@ -89,8 +89,12 @@ public class Slime : MonoBehaviour
         Debug.Log("awsl");
     }
 
-    void UpdateHPUI()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        HPUI.fillAmount = HP / MaxHP;
+        if(collision.tag == "Water")
+        {
+            Debug.Log("WAter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            Absorb(0.02f);
+        }
     }
 }

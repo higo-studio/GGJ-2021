@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class BbBullet : MonoBehaviour
 {
+    
+
     public float Speed = 1;
     public float GravityRate = 1;
     public Vector2 _initDir;
+    
 
     public float Radius = 0.4f;
     public bool isHit = false;
@@ -16,6 +19,12 @@ public class BbBullet : MonoBehaviour
     private RaycastHit2D[] _tempRaycastHitArr = new RaycastHit2D[10];
 
     public Vector2 physicsPos;
+
+    TilesManager tilesManager;
+    private void Awake()
+    {
+        tilesManager = transform.Find("Game")?.GetComponent<TilesManager>();
+    }
     protected void FixedUpdate()
     {
         if (isHit) return;
@@ -48,6 +57,11 @@ public class BbBullet : MonoBehaviour
 
             var effects = EffectManager.ins;
             effects.GenHitEffect(result.point, result.normal);
+            if (tilesManager)
+            {
+                tilesManager.ShootOn(result.point, result.normal);
+            }
+
             break;
         }
 

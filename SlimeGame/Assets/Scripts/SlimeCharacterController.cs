@@ -10,6 +10,8 @@ public class SlimeCharacterController : MonoBehaviour
     public float runSpeed = 4;
     public Texture2D aimCursorTxt;
     public Texture2D normalCursorTxt;
+    private LineRenderer _lineRenderer;
+    public float AimSimulateTime = 1f;
 
     public GameObject bulletPrefab;
     public float airDumping = 0.5f;
@@ -18,11 +20,22 @@ public class SlimeCharacterController : MonoBehaviour
 
     private Camera mainCamera;
 
+    private bool _isAiming = false;
+    public float AimLineSimulationTime = 1f;
+
+    private Vector3[] aimLinePointArr = new Vector3[1000];
+
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         softBody = GetComponent<SoftBody2D>();
         mainCamera = Camera.main;
+
+        _lineRenderer = GameObject.Find("AimLine")?.GetComponent<LineRenderer>();
+        if (!_lineRenderer)
+        {
+            Debug.LogWarning("Cannot find AimLine(LineRender)!");
+        }
     }
 
     void OnEnable()
@@ -48,14 +61,34 @@ public class SlimeCharacterController : MonoBehaviour
             _jumpState = true;
         }
 
-        var fire = Input.GetMouseButtonDown(0);
-        if (fire)
+        var worldClickPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        var delta = worldClickPos - transform.position;
+
+        var line = _lineRenderer;
+
+        var fireDown = Input.GetMouseButtonDown(0);
+        if (fireDown)
         {
-            var worldClickPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            _isAiming = true;
+            line.gameObject.SetActive(true);
+        }
+
+        var fireUp = Input.GetMouseButtonUp(0);
+        if (fireUp)
+        {
             Debug.Log(worldClickPos);
 
-            var delta = worldClickPos - transform.position;
             Bb(delta.normalized, delta.magnitude * 2);
+
+            _isAiming = false;
+            line.gameObject.SetActive(false);
+        }
+
+        if (_isAiming)
+        {
+            var (arr, count) = SimulateAimLine(AimSimulateTime, transform.position, Physics2D.gravity.y, delta * 2);
+            line.positionCount = count;
+            line.SetPositions(arr);
         }
     }
 
@@ -99,10 +132,18 @@ public class SlimeCharacterController : MonoBehaviour
 
         if (_jumpState && (softBody.IsOnground || softBody.IsOnWall))
         {
+            if (softBody.IsOnWall)
+            {
+                var sourceVel = body.velocity;
+                sourceVel.x = softBody.HitNormal.x * runSpeed * 5;
+                body.velocity = sourceVel;
+            }
             softBody.Jump(jumpVel);
             _velBroken = false;
         };
         _jumpState = false;
+
+        Debug.Log(softBody.HitNormal);
     }
 
     void Bb(Vector2 initSpeed, float speed)
@@ -112,5 +153,27 @@ public class SlimeCharacterController : MonoBehaviour
         bb.physicsPos = transform.position;
         bb._initDir = initSpeed;
         bb.Speed = speed;
+    }
+
+    public (Vector3[], int) SimulateAimLine(float simulateTime, Vector2 start, float gravity, Vector2 initSpeed)
+    {
+        var dt = Time.fixedDeltaTime;
+        var count = Mathf.Min(
+            aimLinePointArr.Length,
+            Mathf.FloorToInt(simulateTime / dt)
+        );
+
+        aimLinePointArr[0] = start;
+        var pos = start;
+        var velocity = initSpeed;
+
+        for (var i = 1; i < count; i++)
+        {
+            velocity.y += gravity * dt;
+            pos += velocity * dt;
+            aimLinePointArr[i] = pos;
+        }
+
+        return (aimLinePointArr, count);
     }
 }

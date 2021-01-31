@@ -58,6 +58,9 @@ public class SoftBody2D : MonoBehaviour
     public float slopeLimt = 70f;
 
     private float _gravityRate = 1f;
+
+    private Vector2 _hitNormal;
+    public Vector2 HitNormal => _hitNormal.normalized;
     public float GravityRate {
         get => _gravityRate;
         set {
@@ -208,6 +211,8 @@ public class SoftBody2D : MonoBehaviour
         _isOnWall = false;
         _isOnGround = false;
         tempContactList1.Clear();
+        _hitNormal = Vector2.zero;
+
         foreach (var c in colliders)
         {
             c.GetContacts(tempContactList);
@@ -224,6 +229,7 @@ public class SoftBody2D : MonoBehaviour
                 continue;
             }
 
+            _hitNormal += c.normal;
             var normalAngle = Vector2.Angle(Vector2.up, c.normal);
             if (normalAngle > slopeLimt)
             {
