@@ -6,7 +6,11 @@ public class SlimeCharacterController : MonoBehaviour
     private Rigidbody2D body;
     private SoftBody2D softBody;
 
-    public float jumpVel = 7;
+    public float minJumpVel = 7f;
+    public float maxJumpVel = 14f;
+    public AnimationCurve jumpWithHpCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+    private float jumpVel =>
+        Mathf.Lerp(minJumpVel, maxJumpVel, jumpWithHpCurve.Evaluate(slime.HP / slime.MaxHP));
     public float runSpeed = 4;
     public Texture2D aimCursorTxt;
     public Texture2D normalCursorTxt;
