@@ -467,7 +467,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4949204499014698042, guid: 1e6608ac267d6c84b8f1481bb596b821,
     type: 3}
   airDumping: 0.5
-  enableClimb: 0
+  enableClimb: 1
   AimLineSimulationTime: 1
 --- !u!114 &8773660550182980235
 MonoBehaviour:

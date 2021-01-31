@@ -29930,6 +29930,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1899398861454795724, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
+        type: 3}
+      propertyPath: runSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899398861454795724, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
+        type: 3}
+      propertyPath: maxJumpVel
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2536898895246000394, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3419754639238473406, guid: 762bfd5dddf0ea04bacbc427f7b731f5,
         type: 3}
       propertyPath: m_RootOrder
