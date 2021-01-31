@@ -54,6 +54,8 @@ public class SoftBody2D : MonoBehaviour
     public List<ContactPoint2D> tempContactList = new List<ContactPoint2D>();
     public List<ContactPoint2D> tempContactList1 = new List<ContactPoint2D>();
     public int subBallLayer = 0;
+    [Range(0f, 90f)]
+    public float slopeLimt = 70f;
 
 
     void Awake()
@@ -116,7 +118,6 @@ public class SoftBody2D : MonoBehaviour
             centerSpring.connectedBody = centerCollider.attachedRigidbody;
             centerSpring.autoConfigureDistance = false;
             centerSpring.distance = Vector2.Distance(centerCollider.transform.position, cur.transform.position);
-
             springs[i] = new SpringTuple()
             {
                 connectToPrevious = preSpring,
@@ -190,6 +191,7 @@ public class SoftBody2D : MonoBehaviour
 
     void FixedUpdate()
     {
+        _isOnGround = false;
         tempContactList1.Clear();
         foreach (var c in colliders)
         {
@@ -199,12 +201,18 @@ public class SoftBody2D : MonoBehaviour
 
         foreach (var c in tempContactList1)
         {
-            if (c.collider == centerCollider)
+            if (c.collider.gameObject.layer == gameObject.layer)
             {
-                Debug.Log("asdasd");
+                continue;
             }
+
+            var normalAngle = Vector2.Angle(Vector2.up, c.normal);
+            if (normalAngle > slopeLimt)
+            {
+                continue;
+            }
+            _isOnGround = true;
         }
-        _isOnGround = (tempContactList1.Count > 0);
     }
 
     public bool Jump(float verticalVel)

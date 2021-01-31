@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7178255095478181473}
   - component: {fileID: 7178255095478181486}
+  - component: {fileID: 6091811154564146612}
+  - component: {fileID: 1942159220}
   m_Layer: 0
   m_Name: SlimeEye
   m_TagString: Untagged
@@ -69,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 47ccd10bd301e8f4fb3c3a390b55d290, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -81,6 +83,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6091811154564146612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7178255095478181472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab31981e14a631244bb99af88f93c165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slime: {fileID: 7178255096390898320}
+--- !u!114 &1942159220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7178255095478181472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab31981e14a631244bb99af88f93c165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slime: {fileID: 7178255096390898320}
 --- !u!1 &7178255096390898320
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +124,7 @@ GameObject:
   - component: {fileID: 7178255096390898330}
   - component: {fileID: 7178255096390898334}
   - component: {fileID: 7178255096390898331}
+  - component: {fileID: 164428764}
   m_Layer: 11
   m_Name: SlimeCharacter
   m_TagString: Untagged
@@ -135,7 +164,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -334,3 +363,19 @@ MonoBehaviour:
   runSpeed: 8
   bulletPrefab: {fileID: 4949204499014698042, guid: 1e6608ac267d6c84b8f1481bb596b821,
     type: 3}
+--- !u!114 &164428764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7178255096390898320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c0929529b45794ab8a0947b54a4221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 20
+  MaxHP: 20
+  HPUI: {fileID: 0}
+  weither: 15
