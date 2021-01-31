@@ -6,9 +6,9 @@ public class Slime : MonoBehaviour
 {
 
     //生命值
-    public float HP = 0f;
+    public float HP = 20f;
 
-    public float MaxHP = 0f;
+    public float MaxHP = 20f;
 
     //重量
     public float weither = 15f;
@@ -32,7 +32,7 @@ public class Slime : MonoBehaviour
         
     }
 
-    void Hurt(float ver) {
+    public void Hurt(float ver) {
         HP -= ver;
         if (HP < 0)
             HP = 0;
@@ -43,8 +43,8 @@ public class Slime : MonoBehaviour
     void UpdateState()
     {
         float scale = HP / MaxHP;
-        scale *= 1.5f;
-        body.DebugRadius = scale;
+
+        body.DebugRadius = Mathf.Lerp(0.5f, 1.75f, scale);
     }
 
     void RunOnTheCube()

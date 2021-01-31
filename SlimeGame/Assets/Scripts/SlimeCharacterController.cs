@@ -23,6 +23,7 @@ public class SlimeCharacterController : MonoBehaviour
 
     private bool _isAiming = false;
     public float AimLineSimulationTime = 1f;
+    private Slime slime;
 
     private Vector3[] aimLinePointArr = new Vector3[1000];
 
@@ -30,6 +31,7 @@ public class SlimeCharacterController : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         softBody = GetComponent<SoftBody2D>();
+        slime = GetComponent<Slime>();
         mainCamera = Camera.main;
 
         _lineRenderer = GameObject.Find("AimLine")?.GetComponent<LineRenderer>();
@@ -66,10 +68,12 @@ public class SlimeCharacterController : MonoBehaviour
         var delta = worldClickPos - transform.position;
 
         var line = _lineRenderer;
+        var canShoot = slime.HP > 1;
 
         var fireDown = Input.GetMouseButtonDown(0);
         if (fireDown)
         {
+            line.startColor = line.endColor = canShoot ? Color.white : Color.red;
             _isAiming = true;
             line.gameObject.SetActive(true);
         }
@@ -150,11 +154,18 @@ public class SlimeCharacterController : MonoBehaviour
 
     void Bb(Vector2 initSpeed, float speed)
     {
+        if (slime.HP <= 1)
+        {
+            return;
+        }
+
         var obj = GameObject.Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         var bb = obj.GetComponent<BbBullet>();
         bb.physicsPos = transform.position;
         bb._initDir = initSpeed;
         bb.Speed = speed;
+
+        slime.Hurt(1);
     }
 
     public (Vector3[], int) SimulateAimLine(float simulateTime, Vector2 start, float gravity, Vector2 initSpeed)
