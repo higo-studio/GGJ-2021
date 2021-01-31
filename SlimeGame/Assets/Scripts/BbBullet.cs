@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class BbBullet : MonoBehaviour
 {
-    
+
 
     public float Speed = 1;
     public float GravityRate = 1;
     public Vector2 _initDir;
-    
+
 
     public float Radius = 0.4f;
     public bool isHit = false;
@@ -19,6 +19,8 @@ public class BbBullet : MonoBehaviour
     private RaycastHit2D[] _tempRaycastHitArr = new RaycastHit2D[10];
 
     public Vector2 physicsPos;
+
+    public GameObject follow;
 
     TilesManager tilesManager;
     private void Awake()
@@ -52,7 +54,7 @@ public class BbBullet : MonoBehaviour
 
             // Manafer
 
-            Destroy(gameObject, 1);
+            // Destroy(gameObject, 1);
 
 
             var effects = EffectManager.ins;
@@ -73,6 +75,19 @@ public class BbBullet : MonoBehaviour
 
     protected void Update()
     {
-        transform.position = Vector2.Lerp(transform.position, physicsPos, 0.8f);
+        if (!isHit)
+        {
+            transform.position = Vector2.Lerp(transform.position, physicsPos, 0.8f);
+        }
+        else if (follow)
+        {
+            transform.position = Vector2.Lerp(transform.position, follow.transform.position, Time.deltaTime * 5f);
+            if (Vector2.Distance(transform.position, follow.transform.position) < 0.7f)
+            {
+                Destroy(gameObject, 0.5f);
+                var collect = follow.GetComponent<CollectBall>();
+                collect.Recover();
+            }
+        }
     }
 }

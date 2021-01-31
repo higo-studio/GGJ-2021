@@ -39,6 +39,7 @@ public class SlimeCharacterController : MonoBehaviour
     private Slime slime;
 
     private Vector3[] aimLinePointArr = new Vector3[1000];
+    // private 
 
     void Awake()
     {
@@ -163,7 +164,6 @@ public class SlimeCharacterController : MonoBehaviour
         };
         _jumpState = false;
 
-        Debug.Log(softBody.HitNormal);
     }
 
     void Bb(Vector2 initSpeed, float speed)
@@ -180,6 +180,12 @@ public class SlimeCharacterController : MonoBehaviour
         bb.Speed = speed;
 
         slime.Hurt(1);
+        softBody.DebugRadius = softBodyRadius;
+    }
+
+    public void CollectBall()
+    {
+        slime.Absorb(1);
         softBody.DebugRadius = softBodyRadius;
     }
 
