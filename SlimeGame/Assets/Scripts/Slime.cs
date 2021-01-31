@@ -33,7 +33,7 @@ public class Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdateState();
+        // UpdateState();
         //RunOnTheCube();
         
     }
@@ -48,9 +48,9 @@ public class Slime : MonoBehaviour
     //根据血量更新玩家数值
     void UpdateState()
     {
-        float scale = HP / MaxHP;
+        // float scale = HP / MaxHP;
 
-        body.DebugRadius = Mathf.Lerp(0.5f, 1.75f, scale);
+        // body.DebugRadius = Mathf.Lerp(0.5f, 1.75f, scale);
     }
 
     void RunOnTheCube()

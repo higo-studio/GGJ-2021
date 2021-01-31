@@ -11,6 +11,15 @@ public class SlimeCharacterController : MonoBehaviour
     public AnimationCurve jumpWithHpCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
     private float jumpVel =>
         Mathf.Lerp(minJumpVel, maxJumpVel, jumpWithHpCurve.Evaluate(slime.HP / slime.MaxHP));
+
+    public float minSoftBodyRadius = 0.5f;
+    public float maxSoftBodyRadius = 1.75f;
+    public AnimationCurve softBodyRadiusWithHpCurve
+        = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+
+    private float softBodyRadius =>
+        Mathf.Lerp(minSoftBodyRadius, maxSoftBodyRadius, softBodyRadiusWithHpCurve.Evaluate(slime.HP / slime.MaxHP));
+
     public float runSpeed = 4;
     public Texture2D aimCursorTxt;
     public Texture2D normalCursorTxt;
@@ -43,6 +52,7 @@ public class SlimeCharacterController : MonoBehaviour
         {
             Debug.LogWarning("Cannot find AimLine(LineRender)!");
         }
+        softBody.DebugRadius = softBodyRadius;
     }
 
     void OnEnable()
@@ -170,6 +180,7 @@ public class SlimeCharacterController : MonoBehaviour
         bb.Speed = speed;
 
         slime.Hurt(1);
+        softBody.DebugRadius = softBodyRadius;
     }
 
     public (Vector3[], int) SimulateAimLine(float simulateTime, Vector2 start, float gravity, Vector2 initSpeed)
