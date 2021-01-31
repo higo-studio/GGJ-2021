@@ -8,6 +8,8 @@ public class SlimeCharacterController : MonoBehaviour
 
     public float jumpVel = 7;
     public float runSpeed = 4;
+    public Texture2D aimCursorTxt;
+    public Texture2D normalCursorTxt;
 
     public GameObject bulletPrefab;
     public float airDumping = 0.5f;
@@ -23,6 +25,21 @@ public class SlimeCharacterController : MonoBehaviour
         mainCamera = Camera.main;
     }
 
+    void OnEnable()
+    {
+        if (aimCursorTxt != null)
+        {
+            Cursor.SetCursor(aimCursorTxt, Vector2.zero, CursorMode.Auto);
+        }
+    }
+
+    void OnDisable()
+    {
+        if (normalCursorTxt != null)
+        {
+            Cursor.SetCursor(normalCursorTxt, Vector2.zero, CursorMode.Auto);
+        }
+    }
     void Update()
     {
         var jump = Input.GetButtonDown("Jump");

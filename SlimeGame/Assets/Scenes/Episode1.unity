@@ -835,6 +835,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7178255096390898331, guid: 9b40b3785545b114b9f0ce85872f73b5,
+        type: 3}
+      propertyPath: cursorTxt
+      value: 
+      objectReference: {fileID: 2800000, guid: 7c99c4aee628c3c43af462a41ceb94b3, type: 3}
+    - target: {fileID: 7178255096390898331, guid: 9b40b3785545b114b9f0ce85872f73b5,
+        type: 3}
+      propertyPath: normalTxt
+      value: 
+      objectReference: {fileID: 2800000, guid: 1d70d8e66d91e76419bdd2e30ec42278, type: 3}
+    - target: {fileID: 7178255096390898331, guid: 9b40b3785545b114b9f0ce85872f73b5,
+        type: 3}
+      propertyPath: aimCursorTxt
+      value: 
+      objectReference: {fileID: 2800000, guid: 7c99c4aee628c3c43af462a41ceb94b3, type: 3}
+    - target: {fileID: 7178255096390898331, guid: 9b40b3785545b114b9f0ce85872f73b5,
+        type: 3}
+      propertyPath: normalCursorTxt
+      value: 
+      objectReference: {fileID: 2800000, guid: 1d70d8e66d91e76419bdd2e30ec42278, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b40b3785545b114b9f0ce85872f73b5, type: 3}
 --- !u!1 &329443274
