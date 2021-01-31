@@ -22,12 +22,15 @@ public class Slime : MonoBehaviour
 
     public GameObject deathAnimation;
 
+    private Vector3 _startPos;
+
     private void Update()
     {
         HpUI.fillAmount = HP / MaxHP;
     }
     private void Awake()
     {
+        _startPos = transform.position;
     }
 
 
@@ -107,5 +110,13 @@ public class Slime : MonoBehaviour
         Debug.Log("awsl");
         gameObject.SetActive(false);
         Instantiate(deathAnimation, transform.position, Quaternion.identity);
+        Invoke("Revive", 2);
+        
+    }
+
+    void Revive()
+    {
+        transform.position = _startPos;
+        gameObject.SetActive(true);
     }
 }
