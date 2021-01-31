@@ -23,7 +23,7 @@ public class BbBullet : MonoBehaviour
     TilesManager tilesManager;
     private void Awake()
     {
-        tilesManager = transform.Find("Game").GetComponent<TilesManager>();
+        tilesManager = transform.Find("Prepare").GetComponent<TilesManager>();
     }
     protected void FixedUpdate()
     {
