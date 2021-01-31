@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 
 
@@ -48,19 +47,19 @@ public class TilesManager : MonoBehaviour
                     switch (tile.name)
                     {
                         case "collTile_1":
-                            tilesMes[i,j] = new Earth(false, (Tile)tileSprite, earth_slime_sprite);
+                            tilesMes[i,j] = new Earth(false, tileSprite, grass_slime_sprite, spriteMap, new Vector2(row_i, colume_j));
                             break;
                         case "collTile_4":
-                            tilesMes[i, j] = new Earth(true, (Tile)tileSprite, earth_slime_sprite);
+                            tilesMes[i, j] = new Earth(false, tileSprite, grass_slime_sprite, spriteMap, new Vector2(row_i, colume_j));
                             break;
                         case "collTile_0":
-                            tilesMes[i, j] = new Grass(false, (Tile)tileSprite, grass_slime_sprite);
+                            tilesMes[i, j] = new Grass(false, tileSprite, grass_slime_sprite, spriteMap, new Vector2(row_i, colume_j));
                             break;
                         case "collTile_3":
-                            tilesMes[i, j] = new Grass(true, (Tile)tileSprite, grass_slime_sprite);
+                            tilesMes[i, j] = new Grass(false, tileSprite, grass_slime_sprite, spriteMap, new Vector2(row_i, colume_j));
                             break;
                         case "collTile_2":
-                            tilesMes[i, j] = new Rock(false, tile);
+                            //tilesMes[i, j] = new Rock(false, tileSprite);
                             break;
                             
                     }
@@ -69,6 +68,10 @@ public class TilesManager : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        //spriteMap.RefreshAllTiles();
+    }
 
     public ICube[] GetTileMesByPosition(Vector3 position)
     {

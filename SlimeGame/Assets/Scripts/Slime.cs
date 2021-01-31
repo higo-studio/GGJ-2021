@@ -19,14 +19,14 @@ public class Slime : MonoBehaviour
 
     public TilesManager tilesManager;
 
-    public Image HpUI;
+    
 
     private void Awake()
     {
         
     }
 
-
+    public Image HpUI;
     private void Update()
     {
         HpUI.fillAmount = HP / MaxHP;
@@ -35,7 +35,7 @@ public class Slime : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateState();
-        //RunOnTheCube();
+        RunOnTheCube();
         
     }
 
@@ -76,6 +76,10 @@ public class Slime : MonoBehaviour
         {
             Hurt(objs[3].PollutedByRun());
             
+        }
+        if(objs[1] != null)
+        {
+            Debug.Log(objs[1].IsPolluted);
         }
     }
 

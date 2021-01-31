@@ -45,9 +45,9 @@ public class Rock : MonoBehaviour, ICube
         }
     }
 
-    TileBase tile;
+    Tile tile;
 
-    public Rock(bool isProlluted, TileBase tile)
+    public Rock(bool isProlluted, Tile tile)
     {
         _isProlluted = isProlluted;
         this.tile = tile;

@@ -47,14 +47,18 @@ public class Earth : MonoBehaviour, ICube
     }
 
     public Sprite earth_slime;
+    TileBase tile;
+    Tilemap map;
+    Vector2 pos;
 
-    Tile tile;
 
-    public Earth(bool isProlluted, Tile tile, Sprite _earth_slime)
+    public Earth(bool isProlluted, TileBase tile, Sprite _grass_slime, Tilemap map, Vector2 pos)
     {
-        earth_slime = _earth_slime;
         _isProlluted = isProlluted;
+        earth_slime = _grass_slime;
         this.tile = tile;
+        this.map = map;
+        this.pos = pos;
     }
 
     //被污染(供Player调用)
@@ -78,9 +82,12 @@ public class Earth : MonoBehaviour, ICube
         ChangeCubeTile();
     }
 
-    
+
     void ChangeCubeTile()
     {
+        Tile tile = new Tile();
         tile.sprite = earth_slime;
+        map.SetTile(new Vector3Int((int)pos.x, (int)pos.y, 0), tile);
+        Debug.Log("Grass Change To Slime");
     }
 }
