@@ -203,6 +203,7 @@ MonoBehaviour:
   DebugSubRadius: 0.5
   DebugVisual: 0
   subBallLayer: 10
+  slopeLimt: 70
 --- !u!1971053207 &7178255096390898330
 SpriteShapeRenderer:
   m_ObjectHideFlags: 0
@@ -361,8 +362,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpVel: 8
   runSpeed: 8
+  aimCursorTxt: {fileID: 0}
+  normalCursorTxt: {fileID: 0}
   bulletPrefab: {fileID: 4949204499014698042, guid: 1e6608ac267d6c84b8f1481bb596b821,
     type: 3}
+  airDumping: 0.5
 --- !u!114 &164428764
 MonoBehaviour:
   m_ObjectHideFlags: 0
