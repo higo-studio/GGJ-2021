@@ -37,6 +37,7 @@ public class BbBullet : MonoBehaviour
             GravityRate = 0;
             transform.Translate(result.distance * deltaPos.normalized);
             Debug.Log("BbBullet: " + result.collider.name);
+            Destroy(gameObject, 1);
         }
 
         if (!isHit)
