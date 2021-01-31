@@ -33,7 +33,7 @@ public class SlimeCharacterController : MonoBehaviour
     private bool _velBroken = false;
 
     private Camera mainCamera;
-
+    public AudioSource jumpAudio;
     private bool _isAiming = false;
     public float AimLineSimulationTime = 1f;
     private Slime slime;
@@ -160,6 +160,7 @@ public class SlimeCharacterController : MonoBehaviour
                 sourceVel.x = softBody.HitNormal.x * runSpeed * 5;
                 body.velocity = sourceVel;
             }
+            jumpAudio.Play();
             softBody.Jump(jumpVel);
             _velBroken = false;
         };

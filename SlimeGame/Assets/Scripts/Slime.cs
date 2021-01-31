@@ -21,6 +21,7 @@ public class Slime : MonoBehaviour
     public Image HpUI;
 
     public GameObject deathAnimation;
+    public AudioSource deathClip;
 
     private Vector3 _startPos;
 
@@ -111,7 +112,7 @@ public class Slime : MonoBehaviour
         gameObject.SetActive(false);
         Instantiate(deathAnimation, transform.position, Quaternion.identity);
         Invoke("Revive", 2);
-        
+        deathClip.Play();
     }
 
     void Revive()
