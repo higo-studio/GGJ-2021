@@ -23,7 +23,7 @@ public class BbBullet : MonoBehaviour
     TilesManager tilesManager;
     private void Awake()
     {
-        tilesManager = transform.Find("Prepare").GetComponent<TilesManager>();
+        tilesManager = transform.Find("Game")?.GetComponent<TilesManager>();
     }
     protected void FixedUpdate()
     {
@@ -57,7 +57,10 @@ public class BbBullet : MonoBehaviour
 
             var effects = EffectManager.ins;
             effects.GenHitEffect(result.point, result.normal);
-            tilesManager.ShootOn(result.point, result.normal);
+            if (tilesManager)
+            {
+                tilesManager.ShootOn(result.point, result.normal);
+            }
 
             break;
         }
