@@ -10,7 +10,9 @@ public class SlimeCharacterController : MonoBehaviour
     public float runSpeed = 4;
 
     public GameObject bulletPrefab;
+    public float airDumping = 0.5f;
     private bool _jumpState = false;
+    private bool _velBroken = false;
 
     private Camera mainCamera;
 
@@ -34,30 +36,55 @@ public class SlimeCharacterController : MonoBehaviour
         {
             var worldClickPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             Debug.Log(worldClickPos);
-            Bb((worldClickPos - transform.position).normalized);
+
+            var delta = worldClickPos - transform.position;
+            Bb(delta.normalized, delta.magnitude * 2);
         }
     }
 
     void FixedUpdate()
     {
         var horitonal = Input.GetAxisRaw("Horizontal");
+
+        // var sourVel = body.velocity;
+        // sourVel.x = horitonal * runSpeed * (softBody.IsOnground ? 1 : airDumping);
+        // body.velocity = sourVel;
         if (softBody.IsOnground)
         {
-            body.velocity = new Vector2(horitonal * runSpeed, 0);
+            var sourceVel = body.velocity;
+            sourceVel.x = horitonal * runSpeed;
+            body.velocity = sourceVel;
         }
+        else
+        {
+            var sourceVel = body.velocity;
+            if (!_velBroken && sourceVel.x * horitonal < 0)
+            {
+                _velBroken = true;
+                Debug.Log("Broken");
+            }
+            if (_velBroken)
+            {
+                sourceVel.x = horitonal * runSpeed * airDumping;
+                body.velocity = sourceVel;
+            }
+        }
+
 
         Debug.Log($"IsOnGround: {softBody.IsOnground}");
         if (_jumpState && softBody.IsOnground)
         {
             softBody.Jump(jumpVel);
+            _velBroken = false;
         };
         _jumpState = false;
     }
 
-    void Bb(Vector2 initSpeed)
+    void Bb(Vector2 initSpeed, float speed)
     {
         var obj = GameObject.Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         var bb = obj.GetComponent<BbBullet>();
         bb._initDir = initSpeed;
+        bb.Speed = speed;
     }
 }
