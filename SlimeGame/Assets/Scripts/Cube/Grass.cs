@@ -45,11 +45,14 @@ public class Grass : MonoBehaviour, ICube
         }
     }
 
-    TileBase tile;
+    public Sprite grass_slime;
 
-    public Grass(bool isProlluted, TileBase tile)
+    Tile tile;
+
+    public Grass(bool isProlluted, Tile tile, Sprite _grass_slime)
     {
         _isProlluted = isProlluted;
+        grass_slime = _grass_slime;
         this.tile = tile;
     }
 
@@ -57,6 +60,7 @@ public class Grass : MonoBehaviour, ICube
     public float PollutedByRun()
     {
         return 0;
+
     }
 
     //被污染(供粘液球调用)
@@ -66,5 +70,11 @@ public class Grass : MonoBehaviour, ICube
         {
             _isProlluted = true;
         }
+        ChangeCubeTile();
+    }
+
+    void ChangeCubeTile()
+    {
+        tile.sprite = grass_slime;
     }
 }

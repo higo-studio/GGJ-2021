@@ -46,10 +46,13 @@ public class Earth : MonoBehaviour, ICube
         }
     }
 
-    TileBase tile;
+    public Sprite earth_slime;
 
-    public Earth(bool isProlluted, TileBase tile)
+    Tile tile;
+
+    public Earth(bool isProlluted, Tile tile, Sprite _earth_slime)
     {
+        earth_slime = _earth_slime;
         _isProlluted = isProlluted;
         this.tile = tile;
     }
@@ -78,6 +81,6 @@ public class Earth : MonoBehaviour, ICube
     
     void ChangeCubeTile()
     {
-        
+        tile.sprite = earth_slime;
     }
 }

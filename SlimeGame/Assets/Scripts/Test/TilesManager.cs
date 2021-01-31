@@ -6,14 +6,6 @@ using UnityEngine.Tilemaps;
 
 public class TilesManager : MonoBehaviour
 {
-    /*
-    public string EarthName = "Earth";
-    public string Earth_SlimeName = "Earth_Slime";
-    public string GrassName = "Grass";
-    public string Grass_SlimeName = "Grass_Slime";
-    public string RockName = "Rock";
-    public string Rock_SlimeName = "Rock_Slime";
-    */
 
     //行
     public int row = 0;
@@ -26,6 +18,10 @@ public class TilesManager : MonoBehaviour
     public ICube[,] tilesMes;
 
     public Tilemap map;
+
+    public Sprite earth_slime_sprite;
+
+    public Sprite grass_slime_sprite;
 
     Vector2 mapPosition;
     private void Start()
@@ -48,16 +44,16 @@ public class TilesManager : MonoBehaviour
                     switch (tile.name)
                     {
                         case "collTile_1":
-                            tilesMes[i,j] = new Earth(false, tile);
+                            tilesMes[i,j] = new Earth(false, (Tile)tile, earth_slime_sprite);
                             break;
                         case "collTile_4":
-                            tilesMes[i, j] = new Earth(true, tile);
+                            tilesMes[i, j] = new Earth(true, (Tile)tile, earth_slime_sprite);
                             break;
                         case "collTile_0":
-                            tilesMes[i, j] = new Grass(false, tile);
+                            tilesMes[i, j] = new Grass(false, (Tile)tile, grass_slime_sprite);
                             break;
                         case "collTile_3":
-                            tilesMes[i, j] = new Grass(true, tile);
+                            tilesMes[i, j] = new Grass(true, (Tile)tile, grass_slime_sprite);
                             break;
                         case "collTile_2":
                             tilesMes[i, j] = new Rock(false, tile);
