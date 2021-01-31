@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7178255095478181486}
   - component: {fileID: 6091811154564146612}
   - component: {fileID: 1942159220}
+  - component: {fileID: 354811753418889985}
   m_Layer: 0
   m_Name: SlimeEye
   m_TagString: Untagged
@@ -97,6 +98,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slime: {fileID: 7178255096390898320}
 --- !u!114 &1942159220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7178255095478181472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab31981e14a631244bb99af88f93c165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slime: {fileID: 7178255096390898320}
+--- !u!114 &354811753418889985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -364,9 +378,11 @@ MonoBehaviour:
   runSpeed: 8
   aimCursorTxt: {fileID: 0}
   normalCursorTxt: {fileID: 0}
+  AimSimulateTime: 1
   bulletPrefab: {fileID: 4949204499014698042, guid: 1e6608ac267d6c84b8f1481bb596b821,
     type: 3}
   airDumping: 0.5
+  AimLineSimulationTime: 1
 --- !u!114 &164428764
 MonoBehaviour:
   m_ObjectHideFlags: 0
