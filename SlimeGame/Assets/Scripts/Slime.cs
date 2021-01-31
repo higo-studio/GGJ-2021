@@ -39,7 +39,7 @@ public class Slime : MonoBehaviour
         
     }
 
-    void Hurt(float ver) {
+    public void Hurt(float ver) {
         HP -= ver;
         if (HP < 0)
             HP = 0;

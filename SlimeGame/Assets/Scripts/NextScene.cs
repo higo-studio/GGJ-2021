@@ -21,4 +21,13 @@ public class NextScene : MonoBehaviour
         SceneManager.LoadScene(SceneIndex);
     }
 
+    public void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
 }

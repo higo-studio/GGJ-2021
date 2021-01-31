@@ -149,7 +149,7 @@ public class SoftBody2D : MonoBehaviour
     void Update()
     {
         UpdateVerticies();
-#if UNITY_EDITOR
+// #if UNITY_EDITOR
         if (DebugRadius != Radius)
         {
             Radius = DebugRadius;
@@ -165,7 +165,7 @@ public class SoftBody2D : MonoBehaviour
             _debugVisual = DebugVisual;
             updateDebugVisual(_debugVisual);
         }
-#endif
+// #endif
     }
 
     void InitVerticies()

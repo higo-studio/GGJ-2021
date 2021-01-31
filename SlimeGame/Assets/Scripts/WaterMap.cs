@@ -10,8 +10,8 @@ public class WaterMap : MonoBehaviour
         Slime slime = collision.GetComponent<Slime>();
         if(slime != null)
         {
+            //xishou
             slime.Absorb(0.02f);
-
         }
     }
 

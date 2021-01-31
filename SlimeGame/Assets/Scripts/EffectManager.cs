@@ -70,6 +70,35 @@ public class EffectManager : MonoBehaviour
         };
         _runningParticleCount++;
     }
+    public void GenDeathEffect(Vector2 position, Vector2 normal, float liftTime)
+    {
+        ParticleSystem particle;
+        if (_sputteringPool.Count > 0)
+        {
+            particle = _sputteringPool.Pop();
+        }
+        else
+        {
+            var obj = Instantiate(sputteringParicle, transform);
+            particle = obj.GetComponent<ParticleSystem>();
+        }
+        // 自动回收
+        if (liftTime == 0)
+        {
+            liftTime = particle.main.duration;
+        }
+
+        particle.transform.position = position;
+        particle.transform.up = normal;
+        particle.gameObject.SetActive(true);
+        particle.Play(true);
+        _runningParticleArr[_runningParticleCount] = new RunningParticleInfo()
+        {
+            system = particle,
+            endTime = Time.time + liftTime
+        };
+        _runningParticleCount++;
+    }
 
     protected void LateUpdate()
     {

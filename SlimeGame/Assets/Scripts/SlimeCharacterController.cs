@@ -6,7 +6,20 @@ public class SlimeCharacterController : MonoBehaviour
     private Rigidbody2D body;
     private SoftBody2D softBody;
 
-    public float jumpVel = 7;
+    public float minJumpVel = 7f;
+    public float maxJumpVel = 14f;
+    public AnimationCurve jumpWithHpCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+    private float jumpVel =>
+        Mathf.Lerp(minJumpVel, maxJumpVel, jumpWithHpCurve.Evaluate(slime.HP / slime.MaxHP));
+
+    public float minSoftBodyRadius = 0.5f;
+    public float maxSoftBodyRadius = 1.75f;
+    public AnimationCurve softBodyRadiusWithHpCurve
+        = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+
+    private float softBodyRadius =>
+        Mathf.Lerp(minSoftBodyRadius, maxSoftBodyRadius, softBodyRadiusWithHpCurve.Evaluate(slime.HP / slime.MaxHP));
+
     public float runSpeed = 4;
     public Texture2D aimCursorTxt;
     public Texture2D normalCursorTxt;
@@ -23,13 +36,16 @@ public class SlimeCharacterController : MonoBehaviour
 
     private bool _isAiming = false;
     public float AimLineSimulationTime = 1f;
+    private Slime slime;
 
     private Vector3[] aimLinePointArr = new Vector3[1000];
+    // private 
 
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         softBody = GetComponent<SoftBody2D>();
+        slime = GetComponent<Slime>();
         mainCamera = Camera.main;
 
         _lineRenderer = GameObject.Find("AimLine")?.GetComponent<LineRenderer>();
@@ -37,6 +53,7 @@ public class SlimeCharacterController : MonoBehaviour
         {
             Debug.LogWarning("Cannot find AimLine(LineRender)!");
         }
+        softBody.DebugRadius = softBodyRadius;
     }
 
     void OnEnable()
@@ -66,10 +83,12 @@ public class SlimeCharacterController : MonoBehaviour
         var delta = worldClickPos - transform.position;
 
         var line = _lineRenderer;
+        var canShoot = slime.HP > 1;
 
         var fireDown = Input.GetMouseButtonDown(0);
         if (fireDown)
         {
+            line.startColor = line.endColor = canShoot ? Color.white : Color.red;
             _isAiming = true;
             line.gameObject.SetActive(true);
         }
@@ -95,6 +114,7 @@ public class SlimeCharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
+        Debug.Log($"wall: {softBody.IsOnWall}, ground: {softBody.IsOnground}");
         var horitonal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
 
@@ -132,9 +152,9 @@ public class SlimeCharacterController : MonoBehaviour
         }
 
 
-        if (_jumpState && (softBody.IsOnground || softBody.IsOnWall))
+        if (_jumpState && (softBody.IsOnground || (softBody.IsOnWall && enableClimb)))
         {
-            if (softBody.IsOnWall && enableClimb)
+            if (softBody.IsOnWall)
             {
                 var sourceVel = body.velocity;
                 sourceVel.x = softBody.HitNormal.x * runSpeed * 5;
@@ -145,16 +165,29 @@ public class SlimeCharacterController : MonoBehaviour
         };
         _jumpState = false;
 
-        Debug.Log(softBody.HitNormal);
     }
 
     void Bb(Vector2 initSpeed, float speed)
     {
+        if (slime.HP <= 1)
+        {
+            return;
+        }
+
         var obj = GameObject.Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         var bb = obj.GetComponent<BbBullet>();
         bb.physicsPos = transform.position;
         bb._initDir = initSpeed;
         bb.Speed = speed;
+
+        slime.Hurt(1);
+        softBody.DebugRadius = softBodyRadius;
+    }
+
+    public void CollectBall()
+    {
+        slime.Absorb(1);
+        softBody.DebugRadius = softBodyRadius;
     }
 
     public (Vector3[], int) SimulateAimLine(float simulateTime, Vector2 start, float gravity, Vector2 initSpeed)
@@ -177,5 +210,10 @@ public class SlimeCharacterController : MonoBehaviour
         }
 
         return (aimLinePointArr, count);
+    }
+
+    public void RefreshRadius()
+    {
+        softBody.DebugRadius = softBodyRadius;
     }
 }
