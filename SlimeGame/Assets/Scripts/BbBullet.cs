@@ -84,7 +84,7 @@ public class BbBullet : MonoBehaviour
             transform.position = Vector2.Lerp(transform.position, follow.transform.position, Time.deltaTime * 5f);
             if (Vector2.Distance(transform.position, follow.transform.position) < 0.7f)
             {
-                Destroy(gameObject, 0.5f);
+                Destroy(gameObject);
                 var collect = follow.GetComponent<CollectBall>();
                 collect.Recover();
             }

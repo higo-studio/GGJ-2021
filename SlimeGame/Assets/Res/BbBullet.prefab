@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 4949204499014698038}
   - component: {fileID: 4949204499014698040}
   - component: {fileID: 1580246976475087946}
-  m_Layer: 0
+  - component: {fileID: 3483850343678038788}
+  m_Layer: 11
   m_Name: BbBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,6 +106,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   physicsPos: {x: 0, y: 0}
+  follow: {fileID: 0}
 --- !u!82 &1580246976475087946
 AudioSource:
   m_ObjectHideFlags: 0
@@ -201,3 +203,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!58 &3483850343678038788
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4949204499014698042}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.21875

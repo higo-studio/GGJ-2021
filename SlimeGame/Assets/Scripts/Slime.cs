@@ -19,26 +19,28 @@ public class Slime : MonoBehaviour
     public TilesManager tilesManager;
 
     public Image HpUI;
-    
+
+    public GameObject deathAnimation;
+
     private void Update()
     {
         HpUI.fillAmount = HP / MaxHP;
     }
     private void Awake()
     {
-        
     }
 
-    
+
 
     private void FixedUpdate()
     {
         // UpdateState();
         //RunOnTheCube();
-        
+
     }
 
-    public void Hurt(float ver) {
+    public void Hurt(float ver)
+    {
         HP -= ver;
         if (HP < 0)
             HP = 0;
@@ -59,22 +61,22 @@ public class Slime : MonoBehaviour
         if (objs[0] != null && !objs[0].IsPolluted)
         {
             Hurt(objs[0].PollutedByRun());
-            
+
         }
         if (objs[1] != null && !objs[1].IsPolluted)
         {
             Hurt(objs[1].PollutedByRun());
-            
+
         }
         if (objs[2] != null && !objs[2].IsPolluted)
         {
             Hurt(objs[2].PollutedByRun());
-            
+
         }
         if (objs[3] != null && !objs[3].IsPolluted)
         {
             Hurt(objs[3].PollutedByRun());
-            
+
         }
     }
 
@@ -83,24 +85,27 @@ public class Slime : MonoBehaviour
         return weither;
     }
 
-    public void Absorb(float hel)
+    public void Absorb(float hel, bool over = false)
     {
         HP += hel;
         if (HP > MaxHP)
-            Dead();
+        {
+            if (over)
+            {
+                Dead();
+            }
+            else
+            {
+                HP = MaxHP;
+            }
+
+        }
     }
 
     void Dead()
     {
         Debug.Log("awsl");
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision.tag == "Water")
-        {
-            Debug.Log("WAter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Absorb(0.02f);
-        }
+        gameObject.SetActive(false);
+        Instantiate(deathAnimation, transform.position, Quaternion.identity);
     }
 }

@@ -210,4 +210,14 @@ public class SlimeCharacterController : MonoBehaviour
 
         return (aimLinePointArr, count);
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Water")
+        {
+            Debug.Log("WAter!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            slime.Absorb(0.02f, true);
+            softBody.DebugRadius = softBodyRadius;
+        }
+    }
 }
