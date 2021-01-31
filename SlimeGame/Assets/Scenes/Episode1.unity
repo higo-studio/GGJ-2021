@@ -716,12 +716,12 @@ PrefabInstance:
     - target: {fileID: 7178255096390898321, guid: 9b40b3785545b114b9f0ce85872f73b5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.95
+      value: -23.49
       objectReference: {fileID: 0}
     - target: {fileID: 7178255096390898321, guid: 9b40b3785545b114b9f0ce85872f73b5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.385
+      value: 4.47
       objectReference: {fileID: 0}
     - target: {fileID: 7178255096390898321, guid: 9b40b3785545b114b9f0ce85872f73b5,
         type: 3}
@@ -29832,7 +29832,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 18.75, y: 56.25}
+    oldSize: {x: 3, y: 9}
     newSize: {x: 75, y: 60}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
@@ -29923,7 +29923,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523527968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.858776, y: 2.978607, z: -12.680368}
+  m_LocalPosition: {x: -19.398775, y: 6.0636067, z: -12.680368}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
