@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Botton : MonoBehaviour, IGear
 {
+    public Animator yangcong;
+    public AnimationClip closeClip;
+
     public bool _isTriggering;
 
     //触发需要的最小重量
@@ -88,8 +91,8 @@ public class Botton : MonoBehaviour, IGear
     {
         if (collision.transform.tag == "Player")
         {
-            Debug.Log("111");
             weither += collision.transform.GetComponent<Slime>().GetWeither();
+
         }
         /*
         if (collision.transform.tag == "Moveable")
@@ -99,22 +102,22 @@ public class Botton : MonoBehaviour, IGear
         */
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    /*private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.tag == "Player")
         {
             weither -= collision.transform.GetComponent<Slime>().GetWeither();
         }
-        /*
+        
         if (collision.transform.tag == "Moveable")
         {
             weither -= collision.transform.GetComponent<Move>().GetWeither();
         }
-        */
+        
 
         if (weither < 0)
             weither = 0;
-    }
+    }*/
     
 
 
@@ -136,6 +139,7 @@ public class Botton : MonoBehaviour, IGear
 
     public void Triggering()
     {
+        yangcong.Play(closeClip.name);
         _isTriggering = true;
         if (_targets != null && _targets.Count > 0)
         {
