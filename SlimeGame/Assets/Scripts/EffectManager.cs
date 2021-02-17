@@ -38,6 +38,7 @@ public class EffectManager : MonoBehaviour
 
     public void GenHitEffect(Vector2 position, Vector2 normal)
     {
+        FindObjectOfType<TilesManager>().ShootOn(position, normal);
         GenHitEffect(position, normal, 0);
     }
 

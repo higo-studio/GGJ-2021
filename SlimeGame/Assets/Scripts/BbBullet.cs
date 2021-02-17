@@ -60,10 +60,7 @@ public class BbBullet : MonoBehaviour
 
             var effects = EffectManager.ins;
             effects.GenHitEffect(result.point, result.normal);
-            if (tilesManager)
-            {
-                tilesManager.ShootOn(result.point, result.normal);
-            }
+            
 
             break;
         }

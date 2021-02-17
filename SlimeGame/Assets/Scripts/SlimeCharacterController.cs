@@ -121,6 +121,7 @@ public class SlimeCharacterController : MonoBehaviour
         // var sourVel = body.velocity;
         // sourVel.x = horitonal * runSpeed * (softBody.IsOnground ? 1 : airDumping);
         // body.velocity = sourVel;
+        enableClimb = slime.enableToClimb;
         softBody.GravityRate = softBody.IsOnWall && enableClimb ? 0 : 1;
 
         if (softBody.IsOnWall && enableClimb)

@@ -6,58 +6,66 @@ using UnityEngine.Tilemaps;
 
 public class TilesManager : MonoBehaviour
 {
-
-    //行
-    public int row = 0;
-
-    //列
-    public int colume = 0;
-
-    public Transform tilemapTransform;
-
-    public ICube[,] tilesMes;
-
+    [SerializeField]
     public Tilemap map;
 
+    [SerializeField]
     public Tilemap spriteMap;
 
-    public Sprite earth_slime_sprite;
+    [SerializeField]
+    public RuleTile earth_slime_rule;
 
-    public Sprite grass_slime_sprite;
+    public RuleTile grass_slime_rule;
 
-    Vector2 mapPosition;
+    Dictionary<Vector3Int, ICube> tilesMes;
+    Vector3Int boundMin;
+    Vector3Int boundMax;
+
+    private void Awake()
+    {
+        tilesMes = new Dictionary<Vector3Int, ICube>();
+    }
+
     private void Start()
-    {   
-        mapPosition = tilemapTransform.position;
+    {
         /**
          * 读取地图方块信息
          */
-        tilesMes = new ICube[row, colume];
-        for(int i = 0; i < row; i++)
+        
+        boundMax = map.cellBounds.max;
+        boundMin = map.cellBounds.min;
+
+        Debug.Log($"MinPosition:{boundMin}   MaxPosition:{boundMax}");
+
+        for (int i = boundMin.y; i <= boundMax.y; i++)
         {
-            for(int j = 0; j < colume; j++)
+            for(int j = boundMin.x; j <= boundMax.x; j++)
             {
-                int row_i = i - (int)Mathf.Floor(tilemapTransform.position.x);
-                int colume_j = j - (int)Mathf.Floor(tilemapTransform.position.y);
-                TileBase tile = map.GetTile(new Vector3Int(row_i, colume_j, 0));
-                TileBase tileSprite = spriteMap.GetTile(new Vector3Int(row_i, colume_j, 0));
+                TileBase tile = map.GetTile(new Vector3Int(j, i, 0));
+                TileBase tileSprite = spriteMap.GetTile(new Vector3Int(j, i, 0));
                 if (tile != null)
                 {
                     
                     switch (tile.name)
                     {
                         case "collTile_1":
-                            tilesMes[i,j] = new Earth(false, tileSprite, grass_slime_sprite, spriteMap, new Vector2(row_i, colume_j));
+
+                            tilesMes.Add(new Vector3Int(j, i, 0), new Earth(false, tileSprite, earth_slime_rule, spriteMap, new Vector2(j, i)));
                             break;
+
                         case "collTile_4":
-                            tilesMes[i, j] = new Earth(false, tileSprite, grass_slime_sprite, spriteMap, new Vector2(row_i, colume_j));
+                            tilesMes.Add(new Vector3Int(j, i, 0), new Earth(true, tileSprite, earth_slime_rule, spriteMap, new Vector2(j, i)));
                             break;
+
                         case "collTile_0":
-                            tilesMes[i, j] = new Grass(false, tileSprite, grass_slime_sprite, spriteMap, new Vector2(row_i, colume_j));
+                            tilesMes.Add(new Vector3Int(j, i, 0), new Grass(false, tileSprite, grass_slime_rule, spriteMap, new Vector2(j, i)));
+
                             break;
+
                         case "collTile_3":
-                            tilesMes[i, j] = new Grass(false, tileSprite, grass_slime_sprite, spriteMap, new Vector2(row_i, colume_j));
+                            tilesMes.Add(new Vector3Int(j, i, 0), new Grass(true, tileSprite, grass_slime_rule, spriteMap, new Vector2(j, i)));
                             break;
+
                         case "collTile_2":
                             //tilesMes[i, j] = new Rock(false, tileSprite);
                             break;
@@ -75,54 +83,83 @@ public class TilesManager : MonoBehaviour
 
     public ICube[] GetTileMesByPosition(Vector3 position)
     {
-        //position += mapPosition;
-        position.x = Mathf.Floor(position.x);
-        position.y = Mathf.Floor(position.y);
-        //Debug.Log(position);
-        Vector3Int _pos = new Vector3Int((int)position.x, (int)position.y, 0);
-        // 0上  1下  2左  3右
-        ICube[] tiles = new ICube[4];
-        if ((_pos.y + 1) < row && tilesMes[_pos.x, _pos.y + 1] != null)
+        
+        Vector3Int _pos = map.WorldToCell(position);
+        // 0上  1下  2左  3右  4左上  5右上  6左下  7右下
+        ICube[] tiles = new ICube[8];
+        Vector3Int upPos = new Vector3Int(_pos.x, _pos.y + 1, 0);
+        Vector3Int downPos = new Vector3Int(_pos.x, _pos.y - 1, 0);
+        Vector3Int leftPos = new Vector3Int(_pos.x - 1, _pos.y, 0);
+        Vector3Int rightPos = new Vector3Int(_pos.x + 1, _pos.y, 0);
+
+        Vector3Int up_leftPos = new Vector3Int(_pos.x - 1, _pos.y + 1, 0);
+        Vector3Int down_leftPos = new Vector3Int(_pos.x - 1, _pos.y - 1, 0);
+        Vector3Int down_rightPos = new Vector3Int(_pos.x + 1, _pos.y - 1, 0);
+        Vector3Int up_rightPos = new Vector3Int(_pos.x + 1, _pos.y + 1, 0);
+
+        if (tilesMes.ContainsKey(upPos))
         {
-            tiles[0] = tilesMes[_pos.x, _pos.y + 1];
+            tiles[0] = tilesMes[upPos];
         }
-        if ((_pos.y - 1)>-1 && tilesMes[_pos.x, _pos.y - 1] != null)
+        if (tilesMes.ContainsKey(downPos))
         {
-            tiles[1] = tilesMes[_pos.x, _pos.y - 1];
+            tiles[1] = tilesMes[downPos];
         }
-        if ((_pos.x - 1) > 0 && tilesMes[_pos.x - 1, _pos.y] != null)
+        if (tilesMes.ContainsKey(leftPos))
         {
-            tiles[2] = tilesMes[_pos.x - 1, _pos.y];
+            tiles[2] = tilesMes[leftPos];
         }
-        if ((_pos.x + 1) < colume && tilesMes[_pos.x + 1, _pos.y] != null)
+        if (tilesMes.ContainsKey(rightPos))
         {
-            tiles[3] = tilesMes[_pos.x + 1, _pos.y];
+            tiles[3] = tilesMes[rightPos];
+        }
+        if (tilesMes.ContainsKey(up_leftPos))
+        {
+            tiles[4] = tilesMes[up_leftPos];
+        }
+        if (tilesMes.ContainsKey(up_rightPos))
+        {
+            tiles[5] = tilesMes[up_rightPos];
+        }
+        if (tilesMes.ContainsKey(down_leftPos))
+        {
+            tiles[6] = tilesMes[down_leftPos];
+        }
+        if (tilesMes.ContainsKey(down_rightPos))
+        {
+            tiles[7] = tilesMes[down_rightPos];
         }
         return tiles;
     }
 
+    
     public void ShootOn(Vector2 position, Vector2 normal)
     {
-        position.x = Mathf.Floor(position.x);
-        position.y = Mathf.Floor(position.y);
+        Vector3Int hitPos = map.WorldToCell(new Vector3(position.x, position.y, 0));
+
         //Debug.Log(position);
-        Vector3Int _pos = new Vector3Int((int)position.x, (int)position.y, 0);
+
         ICube[] tiles = new ICube[4];
-        if ((_pos.y + 1) < row && tilesMes[_pos.x, _pos.y + 1] != null)
+        Vector3Int upPos = new Vector3Int(hitPos.x, hitPos.y + 1, 0);
+        Vector3Int downPos = new Vector3Int(hitPos.x, hitPos.y - 1, 0);
+        Vector3Int leftPos = new Vector3Int(hitPos.x - 1, hitPos.y, 0);
+        Vector3Int rightPos = new Vector3Int(hitPos.x + 1, hitPos.y, 0);
+
+        if (tilesMes.ContainsKey(upPos))
         {
-            tiles[0] = tilesMes[_pos.x, _pos.y + 1];
+            tiles[0] = tilesMes[upPos];
         }
-        if ((_pos.y - 1) > -1 && tilesMes[_pos.x, _pos.y - 1] != null)
+        if (tilesMes.ContainsKey(downPos))
         {
-            tiles[1] = tilesMes[_pos.x, _pos.y - 1];
+            tiles[1] = tilesMes[downPos];
         }
-        if ((_pos.x - 1) > 0 && tilesMes[_pos.x - 1, _pos.y] != null)
+        if (tilesMes.ContainsKey(leftPos))
         {
-            tiles[2] = tilesMes[_pos.x - 1, _pos.y];
+            tiles[2] = tilesMes[leftPos];
         }
-        if ((_pos.x + 1) < colume && tilesMes[_pos.x + 1, _pos.y] != null)
+        if (tilesMes.ContainsKey(rightPos))
         {
-            tiles[3] = tilesMes[_pos.x + 1, _pos.y];
+            tiles[3] = tilesMes[rightPos];
         }
 
         foreach (ICube cube in tiles)
@@ -133,5 +170,6 @@ public class TilesManager : MonoBehaviour
             }
         }
     }
+    
     
 }

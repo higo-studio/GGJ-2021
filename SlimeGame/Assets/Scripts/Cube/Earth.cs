@@ -46,13 +46,13 @@ public class Earth : MonoBehaviour, ICube
         }
     }
 
-    public Sprite earth_slime;
+    RuleTile earth_slime;
     TileBase tile;
     Tilemap map;
     Vector2 pos;
 
 
-    public Earth(bool isProlluted, TileBase tile, Sprite _grass_slime, Tilemap map, Vector2 pos)
+    public Earth(bool isProlluted, TileBase tile, RuleTile _grass_slime, Tilemap map, Vector2 pos)
     {
         _isProlluted = isProlluted;
         earth_slime = _grass_slime;
@@ -85,9 +85,14 @@ public class Earth : MonoBehaviour, ICube
 
     void ChangeCubeTile()
     {
+        /*
         Tile tile = new Tile();
         tile.sprite = earth_slime;
         map.SetTile(new Vector3Int((int)pos.x, (int)pos.y, 0), tile);
+        */
+
+        map.SetTile(new Vector3Int((int)pos.x, (int)pos.y, 0), earth_slime);
+
         Debug.Log("Grass Change To Slime");
     }
 }

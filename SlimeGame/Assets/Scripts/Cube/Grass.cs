@@ -45,13 +45,13 @@ public class Grass : MonoBehaviour, ICube
         }
     }
 
-    public Sprite grass_slime;
+    RuleTile grass_slime;
 
     TileBase tile;
     Tilemap map;
     Vector2 pos;
 
-    public Grass(bool isProlluted, TileBase tile, Sprite _grass_slime, Tilemap map, Vector2 pos)
+    public Grass(bool isProlluted, TileBase tile, RuleTile _grass_slime, Tilemap map, Vector2 pos)
     {
         _isProlluted = isProlluted;
         grass_slime = _grass_slime;
@@ -84,10 +84,10 @@ public class Grass : MonoBehaviour, ICube
     }
 
     void ChangeCubeTile()
-    {
-        Tile tile = new Tile();
-        tile.sprite = grass_slime;
-        map.SetTile(new Vector3Int((int)pos.x, (int)pos.y, 0), tile);
+    { 
+
+        map.SetTile(new Vector3Int((int)pos.x, (int)pos.y, 0), grass_slime);
+
         Debug.Log("Grass Change To Slime");
     }
 }

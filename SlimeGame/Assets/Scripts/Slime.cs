@@ -19,6 +19,8 @@ public class Slime : MonoBehaviour
 
     public TilesManager tilesManager;
 
+    public bool enableToClimb = false;
+
     
 
     private void Awake()
@@ -77,10 +79,17 @@ public class Slime : MonoBehaviour
             Hurt(objs[3].PollutedByRun());
             
         }
-        if(objs[1] != null)
+
+        foreach(ICube _cube in objs)
         {
-            Debug.Log(objs[1].IsPolluted);
+            if (_cube != null && _cube.IsPolluted)
+            {
+                enableToClimb = true;
+                break;
+            }
+            enableToClimb = false;
         }
+        
     }
 
     public float GetWeither()
